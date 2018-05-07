@@ -9,27 +9,49 @@ const TYPE = {
     Lecturer: 'lecturer'
 };
 
-const findById = async (id) => {
+const findById = async (id, callback) => {
 
     try {
         let person;
 
-        if(!person) person = await Admin.findById(id).exec();
+        if (!person) person = await Admin.findById(id).exec();
 
-        if(!person) person = await Student.findById(id).exec();
+        if (!person) person = await Student.findById(id).exec();
 
-        if(!person) person = await Partner.findById(id).exec();
+        if (!person) person = await Partner.findById(id).exec();
 
-        if(!person) person = await Lecturer.findById(id).exec();
+        if (!person) person = await Lecturer.findById(id).exec();
 
-
+        if(callback) return callback(null,person);
         return person;
 
     } catch (e) {
+        if(callback) callback(e);
         console.log(e);
     }
 }
 
+const findByMail = async (mail, callback) => {
+    try {
+        let person;
+
+        if (!person) person = await Admin.findOne({ mail }).exec();
+
+        if (!person) person = await Student.findOne({ mail }).exec();
+
+        if (!person) person = await Partner.findOne({ mail }).exec();
+
+        if (!person) person = await Lecturer.findOne({ mail }).exec();
+
+
+        if(callback) return callback(null,person);
+        return person;
+
+    } catch (e) {
+        console.log(e);
+        if(callback) callback(e);
+    }
+}
 
 const findModel = function (type) {
     switch (type) {
@@ -92,4 +114,9 @@ const authenticate = async (mail, password, done) => {
 
 };
 
-module.exports = { authenticate, findModel, findById };
+module.exports = {
+    authenticate,
+    findModel,
+    findById,
+    findByMail
+};

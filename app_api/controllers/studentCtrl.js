@@ -243,9 +243,28 @@ const asignForIntern = (req, res) => {
 
 
 const inbox = (req, res) => {
+    const senderMail = req.payload.mail;
     const { receivMail, title, content } = req.body;
 
+    if(!receivMail) return res.status(400).json({message: 'mail is required'});
+    if(!content) return res.status(400).json({message: 'no thing have sent'});
 
+    Person.findByMail(receivMail, (err, receiv) => {
+        if(err) return res.status(400).json(err);
+        if(!receiv) return res.status(400).json({message: 'invalid mail'});
+
+        Person.findByMail(senderMail, (err, sender) => {
+            if(err) return res.status(400).json(err);
+            if(!sender) return res.status(400).json({message: 'wrong token'});
+
+            sendDialog(sender._id, receiv._id, title, content, (err, message) => {
+                if(err) return res.status(400).json(err);
+
+                res.status(200).json(message);
+            })
+        })
+
+    })
 }
 
 
