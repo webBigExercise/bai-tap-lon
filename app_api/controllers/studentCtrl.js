@@ -102,6 +102,9 @@ const updateInfo = (req, res) => {
 
     Student.findOne({ mail }, (err, student) => {
 
+        if(err) return res.status(400).json(err);
+        if(!student) return res.status(400).json({message: 'no student founded'});
+
         student.avatar = avatar;
         student.privateEmail = privateEmail;
         student.skypeID = skypeID;
@@ -140,6 +143,7 @@ const getSkill = (req, res) => {
             // .select('name')
             .exec((err, resp) => {
                 if (err) return res.status(400).json(err);
+                if(!resp || !resp.length) return res.status(400).json({message: 'no project founded'});
 
                 res.status(200).json({
                     projects: resp.map(p => p.name),
