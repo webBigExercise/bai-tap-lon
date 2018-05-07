@@ -102,8 +102,8 @@ const updateInfo = (req, res) => {
 
     Student.findOne({ mail }, (err, student) => {
 
-        if(err) return res.status(400).json(err);
-        if(!student) return res.status(400).json({message: 'no student founded'});
+        if (err) return res.status(400).json(err);
+        if (!student) return res.status(400).json({ message: 'no student founded' });
 
         student.avatar = avatar;
         student.privateEmail = privateEmail;
@@ -143,7 +143,7 @@ const getSkill = (req, res) => {
             // .select('name')
             .exec((err, resp) => {
                 if (err) return res.status(400).json(err);
-                if(!resp || !resp.length) return res.status(400).json({message: 'no project founded'});
+                if (!resp || !resp.length) return res.status(400).json({ message: 'no project founded' });
 
                 res.status(200).json({
                     projects: resp.map(p => p.name),
@@ -196,8 +196,12 @@ const asignForIntern = (req, res) => {
 
 
             InternNotif.findById(internNotifId, (err, internNotif) => {
+
                 if (err) return res.status(400).json(err);
                 if (!internNotif) return res.status(400).json({ message: 'no intern founded' });
+                if (checkIncludes(internNotif.followers, student._id))
+                    return res.status(400).json({ message: 'already follow this intern' });
+
 
                 //if partner use system
                 internNotif.followers.push(student._id);
@@ -216,14 +220,16 @@ const asignForIntern = (req, res) => {
                     //gui thong tin den admin
                     Admin.findOne({}, (err, admin) => {
                         const adminId = admin._id;
-                        sendDialog(student._id, adminId, emailContent, (err, message) => {
+                        const title = 'RECRUIT FORM';
+                        sendDialog(student._id, adminId, title, emailContent, (err, message) => {
                             if (err) res.status(400).json(err);
                             else res.status(200).json(message);
                         })
                     });
 
                 } else {
-                    sendDialog(student._id, internNotif.ownerId, emailContent, (err, message) => {
+                    const title = 'RECRUIT FORM';
+                    sendDialog(student._id, internNotif.ownerId, title, emailContent, (err, message) => {
                         console.log(err);
                         if (err) res.status(400).json(err);
                         else res.status(200).json(message);
@@ -232,27 +238,15 @@ const asignForIntern = (req, res) => {
             })
         })
 
-    async function sendDialog(senderId, receiverId, content, callback) {
-        const dialog = new Dialog({ sender: senderId, receiver: receiverId, content });
-        dialog.save(async (err) => {
-            if (err) return callback(err);
 
-            try {
-                let send = await Person.findById(senderId);
-                let receiv = await Person.findById(receiverId);
-
-                send.listDialogSend.push(dialog._id);
-                receiv.listDialogReceive.push(dialog._id);
-
-                await send.save(err => err ? callback(err) : null);
-                receiv.save(err => err ? callback(err) : callback(null, { message: 'success' }));
-            } catch (e) {
-                callback(e);
-            }
-        })
-    }
 }
 
+
+const inbox = (req, res) => {
+    const { receivMail, title, content } = req.body;
+
+
+}
 
 
 
@@ -261,7 +255,8 @@ module.exports = {
     updateInfo,
     getSkill,
     findNotif,
-    asignForIntern
+    asignForIntern,
+    inbox
 };
 
 
@@ -271,4 +266,31 @@ function toObjectId(str) {
     const ObjectId = require('mongoose').Types.ObjectId;
 
     return new ObjectId(str);
+}
+
+async function sendDialog(senderId, receiverId, title, content, callback) {
+    const dialog = new Dialog({ sender: senderId, title, receiver: receiverId, content });
+    dialog.save(async (err) => {
+        if (err) return callback(err);
+
+        try {
+            let send = await Person.findById(senderId);
+            let receiv = await Person.findById(receiverId);
+
+            send.listDialogSend.push(dialog._id);
+            receiv.listDialogReceive.push(dialog._id);
+
+            await send.save(err => err ? callback(err) : null);
+            receiv.save(err => err ? callback(err) : callback(null, { message: 'success' }));
+        } catch (e) {
+            callback(e);
+        }
+    })
+}
+
+function checkIncludes(arr, el) {
+    const _arr = arr.map(e => e.toString());
+    const _el = el.toString();
+
+    return _arr.includes(_el);
 }
