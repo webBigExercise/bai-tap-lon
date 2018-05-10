@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const apiRoute = require('./app_api/routes');
 const passport = require('passport');
+const cors = require('cors');
 
 require('./app_api/models/db');
 require('./app_api/config/passport');
@@ -25,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
 
-
+app.use(cors());
 app.use('/api', apiRoute);
 
 // catch 404 and forward to error handler
