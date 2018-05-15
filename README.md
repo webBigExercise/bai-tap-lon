@@ -5,9 +5,20 @@ schema:  student lecturer partner admin internship internship-rating news
 
 #api
 
-student: 
-    + getInfo: 0 cần tham số
-    + updateInfo: cần tất cả tham số  sau (lúc đầu khi khởi tạo form thì gọi getInfo để  lấy giá trị mặc định từ server hoặc cho giá trị mặc định trên client để tránh người dùng nhập quá nhiều tham só) : {
+tất cả các lỗi trả về đều có thuộc tính message để ghỉ mô tả lỗi
+
+example url: localhost:3000/api/getInfo?param1=2&param2=3;
+
+student: (tất cả đều y/c login trước nếu ko sẽ trả về lỗi có message: mail required)
+    + getInfo (GET):
+      - mô tả: lấy thông tin của user hiện tại
+      - param : ko
+      - url : localhost:3000/api/student/getInfo  (GET)
+      - yêu cầu : có token trên browser (nếu ko sẽ có các json trả về yêu cầu login)
+    + updateInfo(PUT): 
+      - mô tả: update ìnfo của user hiện tại (lúc đầu khi khởi tạo form thì gọi getInfo để  lấy giá trị mặc định từ server hoặc cho giá trị mặc định trên client để tránh người dùng nhập quá nhiều tham só)
+      - url : localhost:3000/api/student/updateInfo
+      - param: để trong body của gói tin với các thuộc tính {
             avatar : string,
             privateEmail : string,
             skypeID : string,
@@ -20,6 +31,18 @@ student:
             note: string,
 
     }
-    +asignForIntern: vd: /api/asignForIntern?id=fldsk  (id là id bài viết mà sinh viên đăng kí)
-    +getSkill : lấy toàn bộ skill của sinh viên
-    +findNotif: phần body có title, ownerId
+    +asignForIntern(PUT): 
+      - url : vd: localhost:3000/api/student/asignForIntern?id=fldsk  
+      - mô tả : đăng kí vào một đơn thực tập
+      - param: {id} (id là id bài viết mà sinh viên đăng kí)
+    +getSkill (GET): 
+      - mô tả: lấy toàn bộ skill của sinh viên hiện tại
+      - url: localhost:3000/api/student/getSkill
+      - param: ko có
+    +findNotif(POST): phần body có title, ownerId
+      - url : localhost:3000/api/student/findNotif
+      - param: để trong body của gói tin : {title, ownerId}
+      - mô tả : tìm thông tin thực tập
+    +inbox(POST): nhắn tin của svien với các người khác
+      - url: localhost:3000/api/student/inbox
+      - param: để trong body của gói tin { receivMail, title, content }
