@@ -83,6 +83,7 @@ PersonSchema.methods.generateJwt = function (more) {
 
     return jwt.sign({
         mail: self.mail,
+        _type,
         more
     }, process.env.JWT_SECRET)
 }
