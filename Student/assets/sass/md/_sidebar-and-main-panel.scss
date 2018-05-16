@@ -90,6 +90,39 @@
             }
         }
 
+        .dropdown{
+
+            margin: 10px 15px 0;
+            border-radius: $border-radius-base;
+            color: $black-color;
+            @extend .animation-transition-general;
+
+
+            > a{
+                margin: 10px 15px 0;
+                border-radius: $border-radius-base;
+                color: $black-color;
+                @extend .animation-transition-general;
+            }
+
+            &:first-child > a{
+                margin: 0 15px;
+            }
+
+            &:hover > a{
+                background: rgba(200, 200, 200, 0.2);
+                color: $black-color;
+            }
+
+            &.active > a{
+                color: #FFFFFF;
+
+                i{
+                    color: #FFFFFF;
+                }
+            }
+        }
+
         p{
             margin: 0;
             line-height: 30px;

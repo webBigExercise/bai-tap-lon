@@ -30,16 +30,21 @@
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
-                    <li class="active">
-                        <a href="dashboard.html">
-                            <i class="material-icons">dashboard</i>
-                            <p>Quản lý điểm</p>
-                        </a>
-                    </li>
                     <li>
                         <a href="./user.html">
                             <i class="material-icons">person</i>
                             <p>Thông tin tài khoản</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a data-toggle="dropdown" href="">
+                            <i class="material-icons">person</i>
+                            <p>Dropdown Example</p>
+                            <ul class="dropdown-menu dropdown-menu-right" style="position:absolute;float: left;">
+                                <li><a href="#">HTML</a></li>
+                                <li><a href="#">CSS</a></li>
+                                <li><a href="#">JavaScript</a></li>
+                            </ul>
                         </a>
                     </li>
                     <li>
@@ -116,7 +121,7 @@
                         </ul>
                         <form class="navbar-form navbar-right" role="search">
                             <div class="form-group  is-empty">
-                                <input type="text" class="form-control" placeholder="Tìm kiếmda">
+                                <input type="text" class="form-control" placeholder="Tìm kiếm">
                                 <span class="material-input"></span>
                             </div>
                             <button type="submit" class="btn btn-white btn-round btn-just-icon">
