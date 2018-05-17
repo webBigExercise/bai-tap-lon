@@ -20,7 +20,7 @@
                 localStorage.setItem('jwt-token',resp.token);
                 
                 //redirect to main app
-                location.replace('localhost:4200');
+                location.replace('http://localhost:3000/app');
             },
             error: function (err){
                 err = JSON.parse(err);
