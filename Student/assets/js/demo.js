@@ -1,5 +1,20 @@
 type = ['', 'info', 'success', 'warning', 'danger'];
 
+$(document).ready(function(){
+            	$('.c1').hover(function(){
+            		$('.c1 img').toggleClass('blur');
+            	});
+                $('.c2').hover(function(){
+            		$('.c2 img').toggleClass('blur');
+            	});
+                $('.c3').hover(function(){
+            		$('.c3 img').toggleClass('blur');
+            	});
+                // $('.col-md-2 button').on("click", function(){
+                //     $('.top-div').toggleClass('blur');
+                //     $('.container-fluid').toggleClass('blur');
+                // })
+            });
 
 demo = {
     initPickColor: function() {
@@ -268,3 +283,12 @@ demo = {
 
 
 }
+
+$(document).ready(function(){
+                $('.ql').click(function(){
+                    $(this).fadeOut(400);
+                })
+                $('.sidebar').mouseleave(function(){
+                    $('.ql').fadeIn(400);
+                })
+            });

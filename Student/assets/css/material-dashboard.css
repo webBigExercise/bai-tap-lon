@@ -745,37 +745,11 @@ h2.title {
 }
 
 .sidebar .nav .dropdown{
-
     margin: 10px 15px 0;
     border-radius: $border-radius-base;
     color: $black-color;
     @extend .animation-transition-general;
-
-
-    > p{
-        margin: 10px 15px 0;
-        border-radius: $border-radius-base;
-        color: $black-color;
-        @extend .animation-transition-general;
-    }
-
-    &:first-child > p{
-        margin: 0 15px;
-    }
-
-    &:hover > p{
-        background: rgba(200, 200, 200, 0.2);
-        color: $black-color;
-    }
-
-    &.active > p{
-        color: #FFFFFF;
-
-        i{
-            color: #FFFFFF;
-        }
-    }
-
+    display: inline-block;
 }
 
 .sidebar .nav p,
