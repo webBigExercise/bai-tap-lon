@@ -284,11 +284,34 @@ demo = {
 
 }
 
-$(document).ready(function(){
-                $('.ql').click(function(){
-                    $(this).fadeOut(400);
-                })
-                $('.sidebar').mouseleave(function(){
-                    $('.ql').fadeIn(400);
-                })
-            });
+// $(document).ready(function(){
+//                 $('.thuctap_hide').hide();
+//                 $('.ql').click(function(){
+//                     $('.thuctap_hide').fadeIn(400);
+//                     $('.ql a p').css({'font-size': '120%'}, {'color': "fff"});
+//                 })
+//                 $('.sidebar').mouseleave(function(){
+//                     $('.thuctap_hide').fadeOut(400);
+//                     $('.ql a p').css('font-size', '100%');
+//                 })
+//
+//                 $('.baocao_hide').hide();
+//                 $('.ql_1').click(function(){
+//                     $('.baocao_hide').fadeIn(400);
+//                     $('.ql_1 a p').css({'font-size': '120%'}, {'color': "fff"});
+//                 })
+//                 $('.sidebar').mouseleave(function(){
+//                     $('.baocao_hide').fadeOut(400);
+//                     $('.ql_1 a p').css('font-size', '100%');
+//                 })
+//
+//                 $('.nhanxet_hide').hide();
+//                 $('.ql_2').click(function(){
+//                     $('.nhanxet_hide').fadeIn(400);
+//                     $('.ql_2 a p').css({'font-size': '120%'}, {'color': "fff"});
+//                 })
+//                 $('.sidebar').mouseleave(function(){
+//                     $('.nhanxet_hide').fadeOut(400);
+//                     $('.ql_2 a p').css('font-size', '100%');
+//                 })
+//             });
