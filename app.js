@@ -30,10 +30,6 @@ app.use(passport.session());
 
 app.use('/api', apiRoute);
 
-app.use((req, res, next) => {
-    res.sendFile(path.join(__dirname, 'public','login', 'index.html'));
-})
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
