@@ -28,7 +28,11 @@
 } */
 
 /*user*/
-
+.container-fluid .row .col-md-6 .card{
+    background-image: url("../../assets/img/user/1bg.jpg");
+    background-position: center;
+    background-size: cover;
+}
 
 .wrapper .sidebar .logo .simple-text {
     color: #fff;
