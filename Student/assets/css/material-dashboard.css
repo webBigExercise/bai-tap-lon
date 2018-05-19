@@ -27,6 +27,9 @@
     display: none;
 } */
 
+/*user*/
+
+
 .wrapper .sidebar .logo .simple-text {
     color: #fff;
     font-size: 150%;
@@ -2431,7 +2434,7 @@ fieldset[disabled] .navbar .navbar-nav>li>a.btn.btn-rose.active {
 }
 
 body {
-    /* background-color: rgb(150, 164, 186); */
+    /* background-color: rgba(1, 11, 11, 0.8); */
     background-image: url("../../assets/img/background.jpg");
     background-size: cover;
     background-position: fixed;

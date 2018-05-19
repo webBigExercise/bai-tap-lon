@@ -171,7 +171,7 @@
                 </div>
             </nav>
 
-            <div class="container-fluid" style="margin-top: 60px;">
+            <div class="container-fluid" style="border-radius: 2;">
                     <div class="row">
                         <div class="col-md-1">
                         </div>
@@ -179,76 +179,95 @@
                                 <div class="card card-profile">
                                     <div class="card-avatar">
                                         <a href="#pablo">
-                                            <img class="img" src="../assets/img/faces/marc.png" />
+                                            <img class="img" src="../assets/img/faces/marc.png" style="background-color: #fff"/>
                                         </a>
                                     </div>
                                     <div class="content">
                                         <h4 class="card-title">"tên sinh viên"</h4>
                                         <div class="card-content">
                                             <div class="row">
-                                                <div class="col-md-0">
+                                                <div class="col-md-6">
+                                                    <ul class="list-group">
+                                                        <li class="list-group-item text-muted" contenteditable="false" style="background-color: gray; color: white;">Thông tin cá nhân</li>
+                                                        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Email : </strong></span> <p>"email"</p></li>
+                                                        <li class="list-group-item text-right"><span class="pull-left"><strong class="">SkypeID : </strong></span> <p>"skype"</p></li>
+                                                        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Facebook :</strong></span> <p>"facebook"</p></li>
+                                                        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Điện thoại: </strong></span> <p>"phone"</p></li>
+                                                    </ul>
                                                 </div>
-                                                <div class="col-md-5">
-                                                    <div class="card card-stats">
-                                                        <div class="card-header" data-background-color="blue">
-                                                            <P>Mã số sinh viên: </P>
-                                                        </div>
-                                                        <div class="card-content">
-                                                            <p class="category"></p>
-                                                            <h5 class="title">16021061</h5>
-                                                        </div>
-                                                    </div>
+                                                <div class="col-md-6">
+                                                    <ul class="list-group">
+                                                        <li class="list-group-item text-muted" contenteditable="false" style="background-color: gray; color: white;">Thông tin thêm</li>
+                                                        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Ngoại ngữ : </strong></span> <p>"ngoaingu"</p></li>
+                                                        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Chứng chỉ : </strong></span> <p>"chungchi"</p></li>
+                                                        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Kinh nghiệm :</strong></span> <p>"kinhnghiem"</p></li>
+                                                        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Định hướng : </strong></span> <p>"dinhhuong"</p></li>
+                                                        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Ghi chú : </strong></span> <p>"ghi chú"</p></li>
+                                                    </ul>
                                                 </div>
+
                                             </div>
-                                            <div class="row">
-                                                <div class="col-md-5">
-                                                    <div class="card card-stats">
-                                                        <div class="card-header" data-background-color="blue">
-                                                            <P>Lớp: </P>
-                                                        </div>
-                                                        <div class="card-content">
-                                                            <p class="category"></p>
-                                                            <p class="title">C-CLC</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="card card-stats">
-                                                        <div class="card-header" data-background-color="blue">
-                                                            <P>Khóa: </P>
-                                                        </div>
-                                                        <div class="card-content">
-                                                            <p class="category"></p>
-                                                            <p class="title">K61</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="card card-stats">
-                                                        <div class="card-header" data-background-color="blue">
-                                                            <P>Ngành: </P>
-                                                        </div>
-                                                        <div class="card-content">
-                                                            <p class="category"></p>
-                                                            <p class="title">CNTT</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <lable>Ngành : </lable>
-                                                <p class="mssv"></p>
-                                            </div>
-                                            <div class="row">
-                                                <lable>Ngành : </lable>
-                                                <p class="mssv"></p>
-                                            </div>
-                                        </div>
-                                        <a href="./user_updateinfo.html" class="btn btn-primary btn-round">Chỉnh sửa</a>
+                                        <a href="./user_updateinfo.html" class="btn btn-round">Chỉnh sửa</a>
                                     </div>
                                 </div>
                         </div>
                         <div class="col-md-2">
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="margin-top: 20px;">
+                        <div class="card" style="margin-left: 60px;">
+                            <div class="card-header" data-background-color="gray">
+                                <h4 class="title">Thông tin quá trình học</h4>
+                                <p class="category"></p>
+                            </div>
+                            <div class="card-content table-responsive">
+                                <table class="table table-hover">
+                                    <!-- <thead class="text-warning">
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Salary</th>
+                                        <th>Country</th>
+                                    </thead> -->
+                                    <tbody>
+                                        <tr>
+                                            <td>Mã sinh viên</td>
+                                            <td>16021061</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lớp</td>
+                                            <td>C-CLC</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Khóa</td>
+                                            <td>QH2016</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ngành</td>
+                                            <td>CNTT</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Địa chỉ</td>
+                                            <td>Hà Nội</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ngày sinh</td>
+                                            <td>dateofbirth</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email VNU</td>
+                                            <td>CNTT</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Điểm trung bình</td>
+                                            <td>CNTT</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Năm tốt nghiệp dự kiến</td>
+                                            <td>CNTT</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
             </div>
