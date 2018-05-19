@@ -37,7 +37,8 @@ const studentSchema = PersonSchema.extend({
     //attended project
     projects: {type: [Schema.Types.ObjectId], default: []},
     lecturer: {type: Schema.Types.ObjectId},
-    notifFollow: {type: [Schema.Types.ObjectId], default: []}
-})
+    notifFollow: {type: [Schema.Types.ObjectId], default: []},
+    reports: {type: [Schema.Types.ObjectId], default: []}
+});
 
 module.exports = mongoose.model(name, studentSchema);

@@ -9,7 +9,8 @@ const PersonSchema = require('./baseSchema/PersonSchema');
 const partnerSchema = PersonSchema.extend({
     name: { type: String, required: true },
     listProject: { type: [Schema.Types.ObjectId], default: [] },
-    listNotiF: { type: [Schema.Types.ObjectId], default: [] }
+    listNotiF: { type: [Schema.Types.ObjectId], default: [] },
+    reports: {type: [Schema.Types.ObjectId], default: []}
 })
 
 // const partnerSchema = new Schema({
