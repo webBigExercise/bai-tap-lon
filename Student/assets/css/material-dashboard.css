@@ -32,6 +32,14 @@
     background-image: url("../../assets/img/user/1bg.jpg");
     background-position: center;
     background-size: cover;
+    opacity: 0.9;
+}
+
+.container-fluid .row .col-md-6 .card .list-group .list-group-item {
+    background-color: rgba(0, 0, 0, 0.66);
+    color: #fff;
+    border: none;
+    border-color: #000;
 }
 
 .wrapper .sidebar .logo .simple-text {
