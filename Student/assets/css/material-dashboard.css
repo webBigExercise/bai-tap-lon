@@ -42,6 +42,10 @@
     border-color: #000;
 }
 
+.container-fluid .row .col-md-6 .card .list-group .list-group-item p {
+    overflow-wrap: break-word;
+}
+
 .wrapper .sidebar .logo .simple-text {
     color: #fff;
     font-size: 150%;
