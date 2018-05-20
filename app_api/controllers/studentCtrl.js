@@ -4,6 +4,7 @@ const InternNotif = require('../models/internNotif');
 const Dialog = require('../models/dialog');
 const Person = require('../models/person');
 const Admin = require('../models/admin');
+const Report = require('../models/report');
 
 const getInfo = (req, res) => {
     const { mail } = req.payload;
@@ -246,25 +247,71 @@ const inbox = (req, res) => {
     const senderMail = req.payload.mail;
     const { receivMail, title, content } = req.body;
 
-    if(!receivMail) return res.status(400).json({message: 'mail is required'});
-    if(!content) return res.status(400).json({message: 'no thing have sent'});
+    if (!receivMail) return res.status(400).json({ message: 'mail is required' });
+    if (!content) return res.status(400).json({ message: 'no thing have sent' });
 
     Person.findByMail(receivMail, (err, receiv) => {
-        if(err) return res.status(400).json(err);
-        if(!receiv) return res.status(400).json({message: 'invalid mail'});
+        if (err) return res.status(400).json(err);
+        if (!receiv) return res.status(400).json({ message: 'invalid mail' });
 
         Person.findByMail(senderMail, (err, sender) => {
-            if(err) return res.status(400).json(err);
-            if(!sender) return res.status(400).json({message: 'wrong token'});
+            if (err) return res.status(400).json(err);
+            if (!sender) return res.status(400).json({ message: 'wrong token' });
 
             sendDialog(sender._id, receiv._id, title, content, (err, message) => {
-                if(err) return res.status(400).json(err);
+                if (err) return res.status(400).json(err);
 
                 res.status(200).json(message);
             })
         })
 
     })
+}
+
+const sendBriefReport = (req, res) => {
+    const senderEmail = req.payload.mail;
+    const { receivMail, content } = req.body;    
+
+    Student
+        .findOne({ mail: senderEmail }, (err, student) => {
+            if (err) return res.status(400).json(err);
+            if (!student) return res.status(404).json({ message: "no student founded" });
+
+            console.log('no err in student');
+
+            Person.findByMail(receivMail, (err, receiver) => {
+                if (err) return res.status(400).json(err);
+                if (!receiver) return res.status(400).json({ message: 'wrong receiver' });
+
+                const newReport = new Report({
+                    sender: student._id,
+                    receiver: receiver._id,
+                    content,
+                })
+
+                newReport.save(e => {
+                    if (e) return res.status(400).json(e);
+
+                    student.reports.push(newReport._id);
+
+                    student.save(e => {
+
+                        if (e) return res.status(400).json(e);
+
+                        receiver.reports.push(newReport._id);
+
+                        receiver.save(e => {
+                            if (e) return res.status(400).json(e);
+
+                            res.status(200).json({
+                                message: "sending sucess"
+                            })
+                        })
+
+                    })
+                })
+            })
+        })
 }
 
 
@@ -275,7 +322,8 @@ module.exports = {
     getSkill,
     findNotif,
     asignForIntern,
-    inbox
+    inbox,
+    sendBriefReport
 };
 
 

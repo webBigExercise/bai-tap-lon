@@ -46,3 +46,6 @@ student: (tất cả đều y/c login trước nếu ko sẽ trả về lỗi c�
     +inbox(POST): nhắn tin của svien với các người khác
       - url: localhost:3000/api/student/inbox
       - param: để trong body của gói tin { receivMail, title, content }
+    +sendBriefReport(POST): gửi thông báo vắn tắt
+      - url: localhost:3000/api/student/sendBriefReport
+      - param: để trong body của gói tin { receivMail, content } (đăng nhập trước)

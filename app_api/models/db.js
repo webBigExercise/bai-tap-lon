@@ -14,4 +14,5 @@ require('./student');
 require('./project');
 require('./internNotif');
 require('./dialog');
+require('./report');
 require('./seed');

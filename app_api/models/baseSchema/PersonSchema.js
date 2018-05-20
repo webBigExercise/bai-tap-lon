@@ -79,10 +79,12 @@ PersonSchema.methods.changePassword = function (newPassword) {
 
 PersonSchema.methods.generateJwt = function (more) {
 
-    let self = this;
+    // let self = this;
+
+    const { mail, _type } = this;
 
     return jwt.sign({
-        mail: self.mail,
+        mail,
         _type,
         more
     }, process.env.JWT_SECRET)

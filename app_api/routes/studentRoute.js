@@ -12,4 +12,5 @@ route.get('/getSkill', authMid, studentCtrl.getSkill);
 route.post('/findNotif', authMid, studentCtrl.findNotif);
 route.put('/asignForIntern', authMid, studentCtrl.asignForIntern);
 route.post('/inbox', authMid, studentCtrl.inbox );
+route.post('/sendBriefReport', authMid, studentCtrl.sendBriefReport);
 module.exports = route;
