@@ -1,3 +1,8 @@
+const path = require('path');
+const fs = require('fs');
+const del = require('del');
+const SERVER = 'locahost:3000';
+
 const Student = require('../models/student');
 const Project = require('../models/project');
 const InternNotif = require('../models/internNotif');
@@ -270,51 +275,99 @@ const inbox = (req, res) => {
 
 const sendBriefReport = (req, res) => {
     const senderEmail = req.payload.mail;
-    const { receivMail, content } = req.body;    
+    const { receivMail, content } = req.body;
 
-    Student
-        .findOne({ mail: senderEmail }, (err, student) => {
-            if (err) return res.status(400).json(err);
-            if (!student) return res.status(404).json({ message: "no student founded" });
+    if (!receivMail) res.status(400).json({ message: "receive mail is required" });
+    if (!content) res.status(400).json({ message: "content is required" });
 
-            console.log('no err in student');
-
-            Person.findByMail(receivMail, (err, receiver) => {
-                if (err) return res.status(400).json(err);
-                if (!receiver) return res.status(400).json({ message: 'wrong receiver' });
-
-                const newReport = new Report({
-                    sender: student._id,
-                    receiver: receiver._id,
-                    content,
-                })
-
-                newReport.save(e => {
-                    if (e) return res.status(400).json(e);
-
-                    student.reports.push(newReport._id);
-
-                    student.save(e => {
-
-                        if (e) return res.status(400).json(e);
-
-                        receiver.reports.push(newReport._id);
-
-                        receiver.save(e => {
-                            if (e) return res.status(400).json(e);
-
-                            res.status(200).json({
-                                message: "sending sucess"
-                            })
-                        })
-
-                    })
-                })
-            })
-        })
+    saveReport(res, senderEmail, receivMail, content, '');
 }
 
+const sendFullReport = (req, res) => {
+    const senderMail = req.payload.mail;
+    const { receivMail } = req.body;
+    const file = req.file;
 
+
+    if (!receivMail) res.status(400).json({ message: "receive mail is required" });
+    if (!file) res.status(400).json({ message: "content is required" });
+
+    const rootApp = path.dirname(require.main.filename);
+
+    const tmpPath = file.path;
+    console.log(tmpPath);
+    const destPath = path.join(rootApp, '..', 'assets', file.originalname);
+    console.log(destPath);
+
+    saveFile();
+
+    //copy to dest
+    function saveFile() {
+        const src = fs.createReadStream(tmpPath);
+        const dest = fs.createWriteStream(destPath);
+
+        console.log('dfjlasd')
+
+        src.pipe(dest);
+
+        src.on('end', () => {
+            del(tmpPath)
+                .then(() => {
+                    const docLink = `${SERVER}/assets/${file.originalname}`;
+                    // saveReport(res, senderMail, receivMail, '', docLink);
+
+                    // res.status(200).json({ message: 'upload success' });
+
+                    Student
+                        .findOne({ mail: senderMail }, (err, student) => {
+                            if (err) return res.status(400).json(err);
+                            if (!student) return res.status(404).json({ message: "no student founded" });
+
+                            Person.findByMail(receivMail, (err, receiver) => {
+                                if (err) return res.status(400).json(err);
+                                if (!receiver) return res.status(400).json({ message: 'wrong receiver' });
+
+                                const newReport = new Report({
+                                    sender: student._id,
+                                    receiver: receiver._id,
+                                    docLink
+                                })
+
+                                newReport.save(e => {
+                                    if (e) return res.status(400).json(e);
+
+                                    student.reports.push(newReport._id);
+
+                                    student.save(e => {
+
+                                        if (e) return res.status(400).json(e);
+
+                                        receiver.reports.push(newReport._id);
+
+                                        receiver.save(e => {
+                                            if (e) return res.status(400).json(e);
+
+                                            res.status(200).json({
+                                                message: "sending sucess"
+                                            })
+                                        })
+
+                                    })
+                                })
+                            })
+                        })
+                })
+                .catch(err => {
+                    res.status(500).json({ message: 'internal error' });
+                    // console.log(err);
+                    // res.status(400).json(err);
+                })
+        })
+
+        src.on('error', err => res.status(500).json({ message: 'internal error' }));
+
+    }
+}
 
 module.exports = {
     getInfo,
@@ -323,7 +376,8 @@ module.exports = {
     findNotif,
     asignForIntern,
     inbox,
-    sendBriefReport
+    sendBriefReport,
+    sendFullReport
 };
 
 
@@ -360,4 +414,50 @@ function checkIncludes(arr, el) {
     const _el = el.toString();
 
     return _arr.includes(_el);
+}
+
+function saveReport(res, senderMail, receivMail, content, docLink) {
+
+    console.log(senderMail);
+    Student
+        .findOne({ mail: senderEmail }, (err, student) => {
+            if (err) return res.status(400).json(err);
+            if (!student) return res.status(404).json({ message: "no student founded" });
+
+            console.log('no err in student');
+
+            Person.findByMail(receivMail, (err, receiver) => {
+                if (err) return res.status(400).json(err);
+                if (!receiver) return res.status(400).json({ message: 'wrong receiver' });
+
+                const newReport = new Report({
+                    sender: student._id,
+                    receiver: receiver._id,
+                    content,
+                    docLink
+                })
+
+                newReport.save(e => {
+                    if (e) return res.status(400).json(e);
+
+                    student.reports.push(newReport._id);
+
+                    student.save(e => {
+
+                        if (e) return res.status(400).json(e);
+
+                        receiver.reports.push(newReport._id);
+
+                        receiver.save(e => {
+                            if (e) return res.status(400).json(e);
+
+                            res.status(200).json({
+                                message: "sending sucess"
+                            })
+                        })
+
+                    })
+                })
+            })
+        })
 }

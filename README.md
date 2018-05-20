@@ -49,3 +49,6 @@ student: (tất cả đều y/c login trước nếu ko sẽ trả về lỗi c�
     +sendBriefReport(POST): gửi thông báo vắn tắt
       - url: localhost:3000/api/student/sendBriefReport
       - param: để trong body của gói tin { receivMail, content } (đăng nhập trước)
+    +sendFullReport(POST): gửi file report lên server
+      -url: localhost:3000/api/student/sendFullReport
+      -param: để DataForm (input có type là file thì phải có thuộc tính name là report và trong formData phải có thêm reciveMail) (đăng nhập trước)
