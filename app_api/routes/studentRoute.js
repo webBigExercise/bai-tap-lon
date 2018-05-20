@@ -18,4 +18,6 @@ route.put('/asignForIntern', authMiddleware, studentCtrl.asignForIntern);
 route.post('/inbox', authMiddleware, studentCtrl.inbox);
 route.post('/sendBriefReport', authMiddleware, studentCtrl.sendBriefReport);
 route.post('/sendFullReport', authMiddleware, uploadMilleware, studentCtrl.sendFullReport);
+
+route.get('/seeReview', authMiddleware, studentCtrl.seeReview);
 module.exports = route;

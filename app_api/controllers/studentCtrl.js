@@ -10,6 +10,7 @@ const Dialog = require('../models/dialog');
 const Person = require('../models/person');
 const Admin = require('../models/admin');
 const Report = require('../models/report');
+const Review = require('../models/review');
 
 const getInfo = (req, res) => {
     const { mail } = req.payload;
@@ -280,7 +281,46 @@ const sendBriefReport = (req, res) => {
     if (!receivMail) res.status(400).json({ message: "receive mail is required" });
     if (!content) res.status(400).json({ message: "content is required" });
 
-    saveReport(res, senderEmail, receivMail, content, '');
+    Student
+        .findOne({ mail: senderEmail }, (err, student) => {
+            if (err) return res.status(400).json(err);
+            if (!student) return res.status(404).json({ message: "no student founded" });
+
+            console.log('no err in student');
+
+            Person.findByMail(receivMail, (err, receiver) => {
+                if (err) return res.status(400).json(err);
+                if (!receiver) return res.status(400).json({ message: 'wrong receiver' });
+
+                const newReport = new Report({
+                    sender: student._id,
+                    receiver: receiver._id,
+                    content
+                })
+
+                newReport.save(e => {
+                    if (e) return res.status(400).json(e);
+
+                    student.reports.push(newReport._id);
+
+                    student.save(e => {
+
+                        if (e) return res.status(400).json(e);
+
+                        receiver.reports.push(newReport._id);
+
+                        receiver.save(e => {
+                            if (e) return res.status(400).json(e);
+
+                            res.status(200).json({
+                                message: "sending sucess"
+                            })
+                        })
+
+                    })
+                })
+            })
+        })
 }
 
 const sendFullReport = (req, res) => {
@@ -369,6 +409,30 @@ const sendFullReport = (req, res) => {
     }
 }
 
+const seeReview = (req, res) => {
+    const { mail } = req.payload;
+    const { intern } = req.query;
+
+    if (!intern) return res.status(400).json({ message: 'intern is required' });
+
+
+    Student.findOne({ mail }, (err, student) => {
+        if (err || !student)
+            return res.status(500).json({ message: 'internal error' });
+
+        Review.findOne({
+            intern,
+            student: student._id
+        }, (err, review) => {
+            if(err) return res.status(400).json(err);
+            if(!review) return res.status(404).json({message: 'no review'});
+
+            return res.status(200).json(review);
+        })
+
+    })
+}
+
 module.exports = {
     getInfo,
     updateInfo,
@@ -377,7 +441,8 @@ module.exports = {
     asignForIntern,
     inbox,
     sendBriefReport,
-    sendFullReport
+    sendFullReport,
+    seeReview
 };
 
 
@@ -414,50 +479,4 @@ function checkIncludes(arr, el) {
     const _el = el.toString();
 
     return _arr.includes(_el);
-}
-
-function saveReport(res, senderMail, receivMail, content, docLink) {
-
-    console.log(senderMail);
-    Student
-        .findOne({ mail: senderEmail }, (err, student) => {
-            if (err) return res.status(400).json(err);
-            if (!student) return res.status(404).json({ message: "no student founded" });
-
-            console.log('no err in student');
-
-            Person.findByMail(receivMail, (err, receiver) => {
-                if (err) return res.status(400).json(err);
-                if (!receiver) return res.status(400).json({ message: 'wrong receiver' });
-
-                const newReport = new Report({
-                    sender: student._id,
-                    receiver: receiver._id,
-                    content,
-                    docLink
-                })
-
-                newReport.save(e => {
-                    if (e) return res.status(400).json(e);
-
-                    student.reports.push(newReport._id);
-
-                    student.save(e => {
-
-                        if (e) return res.status(400).json(e);
-
-                        receiver.reports.push(newReport._id);
-
-                        receiver.save(e => {
-                            if (e) return res.status(400).json(e);
-
-                            res.status(200).json({
-                                message: "sending sucess"
-                            })
-                        })
-
-                    })
-                })
-            })
-        })
 }

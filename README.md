@@ -52,3 +52,5 @@ student: (tất cả đều y/c login trước nếu ko sẽ trả về lỗi c�
     +sendFullReport(POST): gửi file report lên server
       -url: localhost:3000/api/student/sendFullReport
       -param: để DataForm (input có type là file thì phải có thuộc tính name là report và trong formData phải có thêm reciveMail) (đăng nhập trước)
+    +seeReview(GET) : xem review từ lecturer or partner
+      -url: localhost:3000/api/student/seeReview?intern=3

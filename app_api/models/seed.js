@@ -2,6 +2,7 @@ const Student = require('./student');
 const Project = require('./project');
 const Partner = require('./partner');
 const InternNotif = require('./internNotif');
+const Review = require('./review');
 // const { Schema } = require('mongoose');
 
 const students = [
@@ -46,6 +47,13 @@ const notifs = [{
     startTime: Date.now(),
     endTime: new Date(4324,2,2),
     followers: []
+}]
+
+const reviews = [{
+    intern: '',
+    student: '',
+    grade: 7,
+    review: 'hahahahahahahahaha'
 }]
 
 createSeed();
@@ -128,6 +136,15 @@ async function createSeed() {
         //add notif for partner
         _partners[0].listNotiF.push(_notifs[0]._id);
         await Partner.create(_partners);
+
+
+        //create review
+        for(let i = 0; i < reviews.length; ++i) {
+            reviews[i].intern = _notifs[i % _notifs.length]._id;
+            reviews[i].student = _students[i % _students.length]._id;
+        }
+        await Review.create(reviews);
+
     }
 
 }

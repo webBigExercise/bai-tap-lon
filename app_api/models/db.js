@@ -15,4 +15,5 @@ require('./project');
 require('./internNotif');
 require('./dialog');
 require('./report');
+require('./review');
 require('./seed');
