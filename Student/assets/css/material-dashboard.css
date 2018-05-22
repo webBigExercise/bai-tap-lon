@@ -861,7 +861,7 @@ h2.title {
     content: "";
     display: block;
     background: #FFFFFF;
-    opacity: 0.08;
+    opacity: 0.12;
     /* độ trong suốt */
 }
 
@@ -2463,7 +2463,7 @@ fieldset[disabled] .navbar .navbar-nav>li>a.btn.btn-rose.active {
 
 body {
     /* background-color: rgba(1, 11, 11, 0.8); */
-    background-image: url("../../assets/img/background.jpg");
+    background-image: url("../../assets/img/background.png");
     background-size: cover;
     background-position: fixed;
     color: #FFF;
