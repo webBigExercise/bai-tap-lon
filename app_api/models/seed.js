@@ -1,6 +1,7 @@
 const Student = require('./student');
 const Project = require('./project');
 const Partner = require('./partner');
+const Lecturer = require('./lecturer');
 const InternNotif = require('./internNotif');
 const Review = require('./review');
 // const { Schema } = require('mongoose');
@@ -32,6 +33,9 @@ const projects = [
     {
         name: 'sdlkafj',
         requiredSkills: ['html', 'css']
+    }, {
+        name: 'lecturerrdkfasldkf',
+        requiredSkills: ['html', 'css']
     }
 ]
 
@@ -41,11 +45,20 @@ const partners = [{
     name: 'nah'
 }]
 
+const lecturers = [
+    {
+        mail: 'le@gmail.com',
+        password: 'somepass',
+        name: 'nahfd',
+        birthday: Date.now()
+    }
+]
+
 const notifs = [{
     title: 'nah',
     content: 'talk about something call recruit',
     startTime: Date.now(),
-    endTime: new Date(4324,2,2),
+    endTime: new Date(4324, 2, 2),
     followers: []
 }]
 
@@ -91,11 +104,16 @@ async function createSeed() {
         await Partner.create(partners);
         let _partners = await Partner.find({}).exec();
 
+        //create lecturer
+        await Lecturer.create(lecturers);
+        let _lecturers = await Lecturer.find({}).exec();
+
 
         //init project
         for (let i = 0; i < projects.length; ++i) {
             projects[i].ownerId = _partners[0]._id;
         }
+
         await Project.create(projects);
         let _projects = await Project.find({}).exec();
 
@@ -124,10 +142,16 @@ async function createSeed() {
         await Project.create(_projects);
 
 
+        //lecturer add project
+        _lecturers[0].listProject = [_projects[1]];
+        await Lecturer.create(_lecturers);
+        _projects[1].ownerId = _lecturers[0]._id;
+        await Project.create(_projects);
+
         //create notif
         for (let i = 0; i < notifs.length; ++i) {
             notifs[i].ownerId = _partners[i % notifs.length]._id;
-            notifs[i].followers.push(_students[i%notifs.length]._id);
+            notifs[i].followers.push(_students[i % notifs.length]._id);
         }
 
         await InternNotif.create(notifs);
@@ -139,7 +163,7 @@ async function createSeed() {
 
 
         //create review
-        for(let i = 0; i < reviews.length; ++i) {
+        for (let i = 0; i < reviews.length; ++i) {
             reviews[i].intern = _notifs[i % _notifs.length]._id;
             reviews[i].student = _students[i % _students.length]._id;
         }

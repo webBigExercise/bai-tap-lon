@@ -7,6 +7,13 @@ require('mongoose-schema-extend');
 const PersonSchema = require('./baseSchema/PersonSchema');
 
 const lecturerSchema = PersonSchema.extend({
+
+    birthday: {type: Date, required: true},
+    vnumail: {type: String},
+    phone: {type:String},
+    note: {type:String, default: ''},
+
+
     name: { type: String, required: true },
     listProject: { type: [Schema.Types.ObjectId], default: [] },
     listNotiF: { type: [Schema.Types.ObjectId], default: [] },
