@@ -61,3 +61,6 @@ lecturer
  + getListStudentFollow(GET): lấy toàn bộ sinh viên đang follow minh
    - url : localhost:3000/api/lecturer/getListStudentFollow
    - yeu cau : dang nhap
+ + reviewReport(GET): 
+   - url: localhost:3000/api/lecturer/reviewReport
+   - yeu cau: dang nhap

@@ -1,2 +1,0 @@
-receiveBriefReport from lecturer and partner
-receiveFullReport from lecturer and partner

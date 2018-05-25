@@ -23,7 +23,7 @@ const lecturerSchema = PersonSchema.extend({
         type: [{ type: Schema.Types.ObjectId, ref: 'internNotif' }],
         default: []
     },
-    reports: { type: [Schema.Types.ObjectId], default: [] }
+    reports: { type: [{type: Schema.Types.ObjectId, ref: 'report'}], default: [] }
 });
 
 module.exports = mongoose.model(name, lecturerSchema);

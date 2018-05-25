@@ -4,6 +4,7 @@ const Partner = require('./partner');
 const Lecturer = require('./lecturer');
 const InternNotif = require('./internNotif');
 const Review = require('./review');
+const Report = require('./report');
 // const { Schema } = require('mongoose');
 
 const students = [
@@ -87,6 +88,11 @@ const reviews = [{
     student: '',
     grade: 7,
     review: 'hahahahahahahahaha'
+}];
+
+const reports = [{
+    content: 'soem thidkfjasldkf adsklfjl',
+    docLink: ''
 }]
 
 createSeed();
@@ -202,6 +208,18 @@ async function createSeed() {
         }
         await Review.create(reviews);
 
+
+        //create report
+        reports[0].sender = _students[0]._id;
+        reports[0].receiver = _lecturers[0]._id;
+        await Report.create(reports);
+        let _reports = await Report.find({}).exec();
+
+        //add report to stu lec
+        _students[0].reports.push(_reports[0]._id);
+        _lecturers[0].reports.push(_reports[0]._id);
+        await Lecturer.create(_lecturers);
+        await Student.create(_students);
     }
 
 }

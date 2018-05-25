@@ -104,7 +104,13 @@ const getListStudentFollow = async (req, res) => {
 
 }
 
+const reviewReport = async (req, res) => {
+    const { mail } = req.payload;
+
+}
+
 module.exports = {
     updateInfo,
-    getListStudentFollow
+    getListStudentFollow,
+    reviewReport
 }
