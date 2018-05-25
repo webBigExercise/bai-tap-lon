@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 // Import component
 import { AppComponent } from './app.component';
 import { StudentDashboardComponent } from './student/student.dashboard.component';
+import { StudentInfoComponent } from './student/student.info.component';
 // const appRoutes: Routes = [
 //   { path: 'login', component: LoginComponent },
 //   { path: '**', component: PageNotFoundComponent }
@@ -17,7 +18,7 @@ import { StudentDashboardComponent } from './student/student.dashboard.component
 
 @NgModule({
   declarations: [
-    AppComponent, PageNotFoundComponent, StudentDashboardComponent
+    AppComponent, PageNotFoundComponent, StudentDashboardComponent, StudentInfoComponent
   ],
   imports: [
     BrowserModule, HttpModule, FormsModule, HttpClientModule
