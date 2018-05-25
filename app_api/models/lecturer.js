@@ -8,16 +8,22 @@ const PersonSchema = require('./baseSchema/PersonSchema');
 
 const lecturerSchema = PersonSchema.extend({
 
-    birthday: {type: Date, required: true},
-    vnumail: {type: String},
-    phone: {type:String},
-    note: {type:String, default: ''},
+    birthday: { type: Date, required: true },
+    vnumail: { type: String },
+    phone: { type: String },
+    note: { type: String, default: '' },
 
 
     name: { type: String, required: true },
-    listProject: { type: [Schema.Types.ObjectId], default: [] },
-    listNotiF: { type: [Schema.Types.ObjectId], default: [] },
-    reports: {type: [Schema.Types.ObjectId], default: []}
+    listProject: {
+        type: [{ type: Schema.Types.ObjectId, ref: 'project' }],
+        default: []
+    },
+    listNotiF: {
+        type: [{ type: Schema.Types.ObjectId, ref: 'internNotif' }],
+        default: []
+    },
+    reports: { type: [Schema.Types.ObjectId], default: [] }
 });
 
 module.exports = mongoose.model(name, lecturerSchema);

@@ -26,6 +26,26 @@ const students = [
         privateEmail: 'lkfsadjlkfj',
         phoneNumber: '342-324-234',
         skills: ['html', 'pascal']
+    },
+    {
+        mail: 'secStd@gmail.com',
+        password: 'somepass',
+        //admin provide
+        MSSV: 'dfadfdsf',
+        name: 'nah bdfar sa',
+        birth: new Date(2017, 1, 1),
+        address: 'Mars',
+        classroom: 'K61-CLC',
+        startYear: 2015,
+        speciality: 'nah',
+        // vnuMail : {type: String, required: true},
+        averageGrade: 6.789,
+        granduatedYear: 2020,
+
+        //user manage 
+        privateEmail: 'fasdlkfsadjlkfj',
+        phoneNumber: '342-324-234',
+        skills: ['html', 'pascal']
     }
 ]
 
@@ -124,17 +144,30 @@ async function createSeed() {
             students[i].projects = [_projects[0]._id];
         }
         await Student.create(students);
+        await Project.create(_projects);
         let _students = await Student.find({}).exec();
 
 
         //student add project
-        _students.forEach(s => {
-            _projects[0].students.push({
-                studentId: s._id,
-                grade: 6,
-                comment: 'nhu cut'
-            });
+        // _students.forEach(s => {
+        //     _projects[0].students.push({
+        //         studentId: s._id,
+        //         grade: 6,
+        //         comment: 'nhu cut'
+        //     });
+        // });
+
+        //student add project
+        _projects[0].students.push({
+            studentId: _students[0]._id,
+            grade: 6,
+            comment: 'nhu cut'
         });
+        _projects[1].students.push({
+            studentId: _students[1]._id,
+            grade: 7,
+            comment: 'nhu shit'
+        })
 
         //partner add project
         _partners[0].listProject = [_projects[0]];

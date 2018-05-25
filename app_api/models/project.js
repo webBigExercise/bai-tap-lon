@@ -3,10 +3,14 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const StudentCommentSchema = new Schema({
-    studentId : {type: Schema.Types.ObjectId, required: true},
-    comment: {type: String, default: ''},
-    grade: {type: Number, required: true}
-})
+    studentId: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'student'
+    },
+    comment: { type: String, default: '' },
+    grade: { type: Number, required: true }
+});
 
 const ProjectSchema = new Schema({
 

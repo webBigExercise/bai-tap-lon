@@ -38,8 +38,14 @@ const jwt = require('jsonwebtoken');
 const PersonSchema = new Schema({
     mail: { type: String, required: true, default: 'nah00' },
     password: { type: String, required: true },
-    listDialogSend: { type: [Schema.Types.ObjectId], default: [] },
-    listDialogReceive: { type: [Schema.Types.ObjectId], default: [] },
+    listDialogSend: {
+        type: [{ type: Schema.Types.ObjectId, ref: 'dialog' }],
+        default: []
+    },
+    listDialogReceive: {
+        type: [{ type: Schema.Types.ObjectId, ref: 'dialog' }],
+        default: []
+    },
     _hashAlready: { type: Boolean, default: false }
 
 }, { discriminatorKey: '_type' });

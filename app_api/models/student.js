@@ -8,37 +8,43 @@ require('mongoose-schema-extend');
 const studentSchema = PersonSchema.extend({
 
     //admin provide
-    MSSV: {type: String, required: true, unique: true},
-    name: {type: String, required: true},
-    birth: {type: Date, required: true},
-    address: {type: String, required: true},
-    classroom: {type: String, required: true},
-    startYear: {type: Number, required: true},
-    speciality: {type: String, required: true},
+    MSSV: { type: String, required: true, unique: true },
+    name: { type: String, required: true },
+    birth: { type: Date, required: true },
+    address: { type: String, required: true },
+    classroom: { type: String, required: true },
+    startYear: { type: Number, required: true },
+    speciality: { type: String, required: true },
     // vnuMail : {type: String, required: true},
-    averageGrade: {type: Number, default: 0},
-    granduatedYear: {type: Number, required: true},
+    averageGrade: { type: Number, default: 0 },
+    granduatedYear: { type: Number, required: true },
 
     //user manage 
-    avatar: {type: String},
-    privateEmail: {type: String},
-    skypeID: {type: String},
+    avatar: { type: String },
+    privateEmail: { type: String },
+    skypeID: { type: String },
     facebook: String,
-    phoneNumber: {type: String, required: true},
-    EnglishSkill: {type: String, default: 'tốt nghiệp THPT'},
+    phoneNumber: { type: String, required: true },
+    EnglishSkill: { type: String, default: 'tốt nghiệp THPT' },
     diploma: String,
     expreneced: Number,
-    wantToBe: String, 
+    wantToBe: String,
     note: String,
 
     //skills
-    skills: {type: [String], default: []},
-    
+    skills: { type: [String], default: [] },
+
     //attended project
-    projects: {type: [Schema.Types.ObjectId], default: []},
-    lecturer: {type: Schema.Types.ObjectId},
-    notifFollow: {type: [Schema.Types.ObjectId], default: []},
-    reports: {type: [Schema.Types.ObjectId], default: []}
+    projects: {
+        type: [{ type: Schema.Types.ObjectId, ref: 'project' }],
+        default: []
+    },
+    lecturer: { type: Schema.Types.ObjectId },
+    notifFollow: {
+        type: [{ type: Schema.Types.ObjectId, ref: 'internNotif' }],
+        default: []
+    },
+    reports: { type: [Schema.Types.ObjectId], default: [] }
 });
 
 module.exports = mongoose.model(name, studentSchema);
