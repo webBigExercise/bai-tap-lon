@@ -121,9 +121,12 @@ md = {
     checkSidebarImage: function() {
         $sidebar = $('.sidebar');
         image_src = $sidebar.data('image');
-
+        
+        // image_src = image_src.split('.')[0] + '.' + image_src.split('.')[2];
+        // image_rel_path = require('./../img/'+image_src);
+        
         if (image_src !== undefined) {
-            sidebar_container = '<div class="sidebar-background" style="background-image: url(' + image_src + ') "/>'
+            sidebar_container = '<div class="sidebar-background" [style.background-image] =  "image_rel_path"/>'
             $sidebar.append(sidebar_container);
         }
     },
