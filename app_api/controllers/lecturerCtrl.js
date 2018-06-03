@@ -3,6 +3,7 @@ const Project = require('../models/project');
 const Student = require('../models/student');
 const Person = require('../models/person');
 const Dialog = require('../models/dialog');
+const Review = require('../models/review');
 
 const updateInfo = (req, res) => {
     const { mail } = req.payload;
@@ -150,14 +151,34 @@ const inbox = async (req, res) => {
 
     })
 
-    
+
+}
+
+const reviewStudent = (req, res) => {
+    const { studentId, internId } = req.body;
+    console.log(req.body);
+
+    if(!studentId) return res.status(400).json({message: "student id is required"});
+    if(!internId) return res.status(400).json({message: 'intern id is requried'});
+
+    Review
+        .findOne({
+            intern: internId,
+            student: studentId
+        }, (err, review) => {
+            if(err) return res.status(400).json(err);
+            if(!review) return res.status(404).json({message: 'not found'});
+
+            return res.status(200).json({review});
+        })
 }
 
 module.exports = {
     updateInfo,
     getListStudentFollow,
     reviewReport,
-    inbox
+    inbox,
+    reviewStudent
 }
 
 async function sendDialog(senderId, receiverId, title, content, callback) {

@@ -65,3 +65,7 @@ lecturer
    - url: localhost:3000/api/lecturer/reviewReport
    - yeu cau: dang nhap
  + inbox (POST): tương tự cái trên
+ + reviewStudent(POST): xem nhận xét về sinh viên
+   - url: localhost:3000/api/lecturer/reviewStudent
+   - yêu cầu: đăng nhập
+   - param: để trong body gói tin {studentId, internId}
