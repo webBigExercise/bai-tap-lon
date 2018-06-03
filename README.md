@@ -69,3 +69,7 @@ lecturer
    - url: localhost:3000/api/lecturer/reviewStudent
    - yêu cầu: đăng nhập
    - param: để trong body gói tin {studentId, internId}
+ + giveGrade(POST): cho cho điểm sinh viên
+   - url: localhost:3000/api/lecturer/giveGrade
+   - yêu cầu : đăng nhập
+   - param: để trong body gói tin {studentId, internId, grade}

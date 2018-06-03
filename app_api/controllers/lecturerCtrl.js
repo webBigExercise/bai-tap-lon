@@ -158,19 +158,45 @@ const reviewStudent = (req, res) => {
     const { studentId, internId } = req.body;
     console.log(req.body);
 
-    if(!studentId) return res.status(400).json({message: "student id is required"});
-    if(!internId) return res.status(400).json({message: 'intern id is requried'});
+    if (!studentId) return res.status(400).json({ message: "student id is required" });
+    if (!internId) return res.status(400).json({ message: 'intern id is requried' });
 
     Review
         .findOne({
             intern: internId,
             student: studentId
         }, (err, review) => {
-            if(err) return res.status(400).json(err);
-            if(!review) return res.status(404).json({message: 'not found'});
+            if (err) return res.status(400).json(err);
+            if (!review) return res.status(404).json({ message: 'not found' });
 
-            return res.status(200).json({review});
+            return res.status(200).json({ review });
         })
+}
+
+const giveGrade = (req, res) => {
+    const { grade, internId, studentId } = req.body;
+
+    if (!studentId) return res.status(400).json({ message: "student id is required" });
+    if (!internId) return res.status(400).json({ message: 'intern id is requried' });
+    if (grade !== 0 && !grade) return res.status(400).json({ message: "grade is required" });
+
+    Review
+        .findOne({
+            intern: internId,
+            student: studentId
+        }, (err, review) => {
+            if (err) return res.status(400).json(err);
+            if (!review) return res.status(404).json({ message: 'not found' });
+
+            review.grade = grade;
+            review.save(e => {
+                if (e) return res.status(400).json(e);
+
+                res.status(200).json({ message: "success" });
+            })
+        })
+
+
 }
 
 module.exports = {
@@ -178,7 +204,8 @@ module.exports = {
     getListStudentFollow,
     reviewReport,
     inbox,
-    reviewStudent
+    reviewStudent,
+    giveGrade
 }
 
 async function sendDialog(senderId, receiverId, title, content, callback) {
