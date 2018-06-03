@@ -107,6 +107,21 @@ const getListStudentFollow = async (req, res) => {
 const reviewReport = async (req, res) => {
     const { mail } = req.payload;
 
+    try {
+        const lecturer = await Lecturer
+            .findOne({ mail })
+            .populate('reports')
+            .exec();
+
+        if (!lecturer) return res.status(404).json({ message: 'not found' });
+
+        const { reports } = lecturer;
+
+        res.status(200).json({ reports });
+
+    } catch (e) {
+        return res.status(400).json(e);
+    }
 }
 
 module.exports = {
