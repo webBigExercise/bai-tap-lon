@@ -9,5 +9,6 @@ const authMiddleware = require('express-jwt')({
 route.put('/updateInfo', authMiddleware, lecturerCtrl.updateInfo);
 route.get('/getListStudentFollow', authMiddleware, lecturerCtrl.getListStudentFollow)
 route.get('/reviewReport', authMiddleware, lecturerCtrl.reviewReport);
+route.post('/inbox', authMiddleware, lecturerCtrl.inbox);
 
 module.exports = route;
