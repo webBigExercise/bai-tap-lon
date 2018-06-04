@@ -4,6 +4,10 @@ const Student = require('../models/student');
 const Person = require('../models/person');
 const Dialog = require('../models/dialog');
 const Review = require('../models/review');
+const nodeXlsx = require('node-xlsx');
+const fs = require('fs');
+const path = require('path');
+const del = require('del');
 
 const updateInfo = (req, res) => {
     const { mail } = req.payload;
@@ -199,13 +203,75 @@ const giveGrade = (req, res) => {
 
 }
 
+const genExcel = async (req, res) => {
+    const { mail } = req.payload;
+    // const mail = 'le@gmail.com';
+
+    try {
+
+
+        const { listProject } = await Lecturer
+            .findOne({ mail })
+            .populate('listProject')
+            .select('listProject')
+            .exec();
+
+        const students = await Student
+            .find({})
+            .select('name')
+            .select('_id')
+            .exec();
+
+        const reviews = listProject
+            .map(p => p.students)
+            .reduce((acc, cur) => [...acc, cur]);
+
+        //create data
+        const data = [];
+        for (let review of reviews) {
+            for (let student of students) {
+                if (review.studentId.toString() === student._id.toString()) 
+                    data.push([student.name, review.grade, review.comment]);
+            }
+        }
+
+        //create table
+        const table = [['name', 'grade', 'comment'], ...data];
+        const buffer = nodeXlsx.build([{ name: "namae", data: table}]);
+        // res.write(buffer);
+        // res.end();
+        const filePath = path.join(__dirname, '..', '..','public', 'assets', 'temp.xlsx');
+        const wStream = fs.createWriteStream(filePath);
+        wStream.write(buffer);
+        wStream.end();
+
+        wStream.on('finish' , () => {
+            // console.log('succ');
+            res.download(filePath);
+            del(filePath);
+
+            // res.writeHead(200, [['Content-Type',  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']]);
+            // res.end(new Buffer(buffer, 'base64'))
+        })
+
+        wStream.on('error', (e) => {
+            console.log('err');
+            res.status(400).json(e);
+        })
+
+    } catch (e) {
+        res.status(400).json(e);
+    }
+}
+
 module.exports = {
     updateInfo,
     getListStudentFollow,
     reviewReport,
     inbox,
     reviewStudent,
-    giveGrade
+    giveGrade,
+    genExcel
 }
 
 async function sendDialog(senderId, receiverId, title, content, callback) {

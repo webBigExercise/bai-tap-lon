@@ -12,5 +12,6 @@ route.get('/reviewReport', authMiddleware, lecturerCtrl.reviewReport);
 route.post('/inbox', authMiddleware, lecturerCtrl.inbox);
 route.post('/reviewStudent', authMiddleware, lecturerCtrl.reviewStudent);
 route.post('/giveGrade', authMiddleware, lecturerCtrl.giveGrade);
+route.get('/genExcel',authMiddleware, lecturerCtrl.genExcel);
 
 module.exports = route;
