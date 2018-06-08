@@ -8,5 +8,6 @@ const authMiddleware = require('express-jwt')({
 route.put('/updateInfo', authMiddleware, partnerCtrl.updateInfo);
 route.post('/postIntern', authMiddleware, partnerCtrl.postIntern);
 route.put('/editIntern', authMiddleware, partnerCtrl.editIntern);
+route.post('/inbox', authMiddleware, partnerCtrl.inbox);
 
 module.exports = route;
