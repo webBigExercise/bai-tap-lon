@@ -66,6 +66,8 @@ const editIntern = (req, res) => {
         if(err) return res.status(400).json(err);
         if(!intern) return res.status(404).json({message: 'intern is not founded'});
 
+        if(Date.now() >= intern.endTime) return res.status(400).json({message: 'time is expired'});
+
         if(content) intern.content = content;
         if(title) intern.title = title;
         if(startTime) intern.startTime = startTime;
