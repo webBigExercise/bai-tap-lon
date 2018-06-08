@@ -77,3 +77,22 @@ lecturer
    - url: localhost:3000/api/lecturer/genExcel
    - yêu cầu: đăng nhập và là giảng viên
    - chỉ cần copy đường link vào và đang đăng nhập là download được
+Partner
+ + updateInfo(PUT): 
+   - url: localhost:3000/api/partner/updateInfo
+   - param: trong body: {name, info, password}
+   - yeu cau: dang nhap
+ + postIntern(POST): dang tuyen dung
+  - url: localhost:3000/api/partner/postIntern
+  - param: trong body: { content, title, startTime, endTime }
+  - yeu cau: dang nhap
+ + editIntern(PUT): chinh sua intern
+  - url : localhost:3000/api/partner/editIntern
+  - param: trong body: { id, content, title, startTime, endTime }
+            id: la id cua intern
+  - yeu cau: dang nhap
+ + inbox: nhu tren
+ + allStudentInIntern(GET): lay toan bo sinh vien duoc nhan
+  - url: localhost:3000/api/partner/allStudentInIntern
+  - param : none
+  - yeu cau: dang nhap
