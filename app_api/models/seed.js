@@ -63,7 +63,8 @@ const projects = [
 const partners = [{
     mail: 'pa@gmail.com',
     password: 'somepass',
-    name: 'nah'
+    name: 'nah',
+    info: 'la mot don vi vo van chuyen san xuat vo van'
 }]
 
 const lecturers = [
@@ -148,6 +149,7 @@ async function createSeed() {
         //init student
         for (let i = 0; i < students.length; ++i) {
             students[i].projects = [_projects[0]._id];
+            students[i].lecturer = _lecturers[i % _lecturers.length];
         }
         await Student.create(students);
         await Project.create(_projects);

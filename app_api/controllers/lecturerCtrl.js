@@ -205,6 +205,9 @@ const giveGrade = (req, res) => {
 
 const genExcel = async (req, res) => {
     const { mail } = req.payload;
+    if(!mail) mail = req.query.mail;
+
+    if(!mail) return res.status(400).json({message: 'mail is required'});
     // const mail = 'le@gmail.com';
 
     try {
