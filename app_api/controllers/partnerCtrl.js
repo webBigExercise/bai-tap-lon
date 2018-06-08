@@ -1,5 +1,7 @@
 const Partner = require('../models/partner');
-const Intern = require('../models/internNotif');
+const InternNotif = require('../models/internNotif');
+const Person = require('../models/person');
+const Student = require('../models/student');
 
 
 const updateInfo = (req, res) => {
@@ -41,7 +43,7 @@ const postIntern = (req, res) => {
         if (err) return res.status(400).json(err);
         if (!partner) return res.status(400).json({ message: 'partner is not founded' });
 
-        const newIntern = new Intern({
+        const newIntern = new InternNotif({
             content, title, startTime, endTime,
             ownerId: partner._id
         });
@@ -57,26 +59,26 @@ const postIntern = (req, res) => {
 
 const editIntern = (req, res) => {
     const { mail } = req.payload;
-    const { id,content, title, startTime, endTime } = req.body;
+    const { id, content, title, startTime, endTime } = req.body;
 
     if (!mail) return res.status(400).json({ message: 'partner is not founded' });
-    if(!id) return res.status(400).json({message: 'id is required'});
+    if (!id) return res.status(400).json({ message: 'id is required' });
 
-    Intern.findById(id, (err, intern) => {
-        if(err) return res.status(400).json(err);
-        if(!intern) return res.status(404).json({message: 'intern is not founded'});
+    InternNotif.findById(id, (err, intern) => {
+        if (err) return res.status(400).json(err);
+        if (!intern) return res.status(404).json({ message: 'intern is not founded' });
 
-        if(Date.now() >= intern.endTime) return res.status(400).json({message: 'time is expired'});
+        if (Date.now() >= intern.endTime) return res.status(400).json({ message: 'time is expired' });
 
-        if(content) intern.content = content;
-        if(title) intern.title = title;
-        if(startTime) intern.startTime = startTime;
-        if(endTime) intern.endTime = endTime;
+        if (content) intern.content = content;
+        if (title) intern.title = title;
+        if (startTime) intern.startTime = startTime;
+        if (endTime) intern.endTime = endTime;
 
         intern.save(e => {
-            if(e) return res.status(400).json(e);
+            if (e) return res.status(400).json(e);
 
-            return res.status(200).json({message: 'success'});
+            return res.status(200).json({ message: 'success' });
         })
 
     })
@@ -108,11 +110,49 @@ const inbox = async (req, res) => {
 
 
 }
+
+const allStudentInIntern = async (req, res) => {
+    const { mail } = req.payload;
+
+    if (!mail) return res.status(400).json({ message: 'partner is not founded' });
+
+    try {
+
+        const partner = await Partner
+            .findOne({ mail })
+            .populate('listProject')
+            .exec();
+
+        
+        if(!partner) return res.status(404).json({message: 'not founded partner'});
+
+        const listStudentId = partner.listProject
+            .map(p => p.students)
+            .reduce((pre, cur) => [...pre, ...cur])
+            .map(s => s.studentId);
+
+        const listStudent = await Student
+            .find({_id: {$in: listStudentId}})
+            .select('name')
+            .exec();
+
+        if(!listStudent || !listStudent.length) 
+            return res.status(404).json({message: 'no student is in this partner \' project '});
+        
+        return res.status(200).json({listStudent});
+        
+
+    } catch (e) {
+        if (e) return res.status(400).json(e);
+    }
+}
+
 module.exports = {
     updateInfo,
     postIntern,
     editIntern,
-    inbox
+    inbox,
+    allStudentInIntern
 }
 
 async function sendDialog(senderId, receiverId, title, content, callback) {
