@@ -5,6 +5,7 @@ const Lecturer = require('./lecturer');
 const InternNotif = require('./internNotif');
 const Review = require('./review');
 const Report = require('./report');
+const Admin = require('./admin');
 // const { Schema } = require('mongoose');
 
 const students = [
@@ -96,6 +97,15 @@ const reports = [{
     docLink: ''
 }]
 
+const admins = [{
+    mail: 'nah',
+    name: 'toi',
+    vnumail: 'thda',
+    gmail: 'na',
+    password: '{type: String, required: true}',
+    phoneNum: '567676'
+}]
+
 createSeed();
 
 // Student.count({}, (err, count) => {
@@ -122,10 +132,14 @@ createSeed();
 
 
 async function createSeed() {
-    await console.log('parnter');
+    
     let count = await Partner.count({}).exec();
 
     if (!count) {
+
+        //create admin
+        await Admin.create(admins);
+        let _admin = await Admin.find({}).exec();
 
         //create partner
         await Partner.create(partners);

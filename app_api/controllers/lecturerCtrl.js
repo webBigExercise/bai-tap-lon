@@ -11,12 +11,13 @@ const del = require('del');
 
 const updateInfo = (req, res) => {
     const { mail } = req.payload;
-    const { vnumail, birthday, phone, note, password } = req.body;
+    const { vnumail, birthday, phone, note, password, name } = req.body;
 
     if (!vnumail) return res.status(400).json({ message: "vnumail is required" });
     // if(!birthday) return res.status(400).json({message: "birthday is required"});
     if (!phone) return res.status(400).json({ message: "phone is required" });
     if (!note) return res.status(400).json({ message: "note is required" });
+    if (!name) return res.status(400).json({ message: "name is required" });
 
     Lecturer.findOne({ mail }, (err, lecturer) => {
         if (err) return res.status(400).json(err);
@@ -26,6 +27,7 @@ const updateInfo = (req, res) => {
         if (birthday) lecturer.birthday = birthday;
         lecturer.phone = phone;
         lecturer.note = note;
+        lecturer.name = name;
         if (password) lecturer.password = password;
 
         lecturer.save(err => {
@@ -205,9 +207,9 @@ const giveGrade = (req, res) => {
 
 const genExcel = async (req, res) => {
     const { mail } = req.payload;
-    if(!mail) mail = req.query.mail;
+    if (!mail) mail = req.query.mail;
 
-    if(!mail) return res.status(400).json({message: 'mail is required'});
+    if (!mail) return res.status(400).json({ message: 'mail is required' });
     // const mail = 'le@gmail.com';
 
     try {
@@ -233,22 +235,22 @@ const genExcel = async (req, res) => {
         const data = [];
         for (let review of reviews) {
             for (let student of students) {
-                if (review.studentId.toString() === student._id.toString()) 
+                if (review.studentId.toString() === student._id.toString())
                     data.push([student.name, review.grade, review.comment]);
             }
         }
 
         //create table
         const table = [['name', 'grade', 'comment'], ...data];
-        const buffer = nodeXlsx.build([{ name: "namae", data: table}]);
+        const buffer = nodeXlsx.build([{ name: "namae", data: table }]);
         // res.write(buffer);
         // res.end();
-        const filePath = path.join(__dirname, '..', '..','public', 'assets', 'temp.xlsx');
+        const filePath = path.join(__dirname, '..', '..', 'public', 'assets', 'temp.xlsx');
         const wStream = fs.createWriteStream(filePath);
         wStream.write(buffer);
         wStream.end();
 
-        wStream.on('finish' , () => {
+        wStream.on('finish', () => {
             // console.log('succ');
             res.download(filePath);
             del(filePath);
