@@ -7,5 +7,6 @@ const authMiddleware = require('express-jwt')({
 });
 
 route.post('/updateInfo', authMiddleware, adminCtrl.updateInfo);
+route.post('/createStudent', authMiddleware, adminCtrl.creatStudent);
 
 module.exports = route;

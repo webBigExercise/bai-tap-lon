@@ -39,7 +39,7 @@ const studentSchema = PersonSchema.extend({
         type: [{ type: Schema.Types.ObjectId, ref: 'project' }],
         default: []
     },
-    lecturer: { type: Schema.Types.ObjectId, required: true },
+    lecturer: { type: Schema.Types.ObjectId },
     notifFollow: {
         type: [{ type: Schema.Types.ObjectId, ref: 'internNotif' }],
         default: []
