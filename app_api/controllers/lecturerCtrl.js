@@ -4,6 +4,7 @@ const Student = require('../models/student');
 const Person = require('../models/person');
 const Dialog = require('../models/dialog');
 const Review = require('../models/review');
+const Admin = require('../models/admin');
 const nodeXlsx = require('node-xlsx');
 const fs = require('fs');
 const path = require('path');
@@ -206,7 +207,9 @@ const giveGrade = (req, res) => {
 }
 
 const genExcel = async (req, res) => {
-    const { mail } = req.payload;
+    // const { mail } = req.payload;
+    let mail;
+    if(req.payload) mail = req.payload.mail;
     if (!mail) mail = req.query.mail;
 
     if (!mail) return res.status(400).json({ message: 'mail is required' });
@@ -250,10 +253,27 @@ const genExcel = async (req, res) => {
         wStream.write(buffer);
         wStream.end();
 
-        wStream.on('finish', () => {
-            // console.log('succ');
-            res.download(filePath);
-            del(filePath);
+        wStream.on('finish', async () => {
+            
+            //give admin a link
+            
+            const admin = await Admin.findOne({}).exec();
+            if(!admin) return res.status(512);
+
+            const link = `localhost:3000/api/lecturer/genExcel?mail=${mail}`;
+            admin.listExcelReport.push(link);
+
+            admin.save(e => {
+
+                if(e) return res.status(400).json(e);
+
+                res.download(filePath);
+                del(filePath);
+            })
+
+
+            //download from client
+
 
             // res.writeHead(200, [['Content-Type',  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']]);
             // res.end(new Buffer(buffer, 'base64'))
