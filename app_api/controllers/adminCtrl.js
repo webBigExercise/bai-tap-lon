@@ -1,5 +1,7 @@
 const Admin = require('../models/admin');
 const Student = require('../models/student');
+const Lecturer = require('../models/lecturer');
+const Partner = require('../models/partner');
 
 const updateInfo = (req, res) => {
     const { mail } = req.payload;
@@ -85,7 +87,47 @@ const creatStudent = (req, res) => {
 
 }
 
+const createLecturer = (req, res) => {
+    const { mail, password } = req.body;
+
+    if(!mail) return res.status(400).json({message: 'mail is required'});
+    if(!password) return res.status(400).json({message: 'password is required'});
+
+    const newLecturer = new Lecturer();
+    newLecturer.mail = mail;
+    newLecturer.password = password;
+    newLecturer.birthday = Date.now();
+    newLecturer.name = 'x';
+
+    newLecturer.save(e => {
+        if(e) return res.status(500).json(e);
+
+        return res.status(200).json({message: 'success'});
+    })
+}
+
+const createPartner = (req, res) => {
+    const { mail, password } = req.body;
+
+    if(!mail) return res.status(400).json({message: 'mail is required'});
+    if(!password) return res.status(400).json({message: 'password is required'});
+
+    const newPartner = new Partner();
+    newPartner.mail = mail;
+    newPartner.password = password;
+    newPartner.name = 'x';
+    newPartner.info = 'x';
+
+    newPartner.save(e => {
+        if(e) return res.status(500).json(e);
+
+        return res.status(200).json({message: 'success'});
+    })
+}
+
 module.exports = {
     updateInfo,
-    creatStudent
+    creatStudent,
+    createLecturer,
+    createPartner
 }
