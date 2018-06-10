@@ -10,5 +10,8 @@ route.post('/updateInfo', authMiddleware, adminCtrl.updateInfo);
 route.post('/createStudent', authMiddleware, adminCtrl.creatStudent);
 route.post('/createLecturer', authMiddleware, adminCtrl.createLecturer);
 route.post('/createPartner', authMiddleware, adminCtrl.createPartner);
+route.post('/deleteStudent', authMiddleware, adminCtrl.deleteStudent);
+route.post('/deleteLecturer', authMiddleware, adminCtrl.deleteLecturer);
+route.post('/deletePartner', authMiddleware, adminCtrl.deletePartner);
 
 module.exports = route;

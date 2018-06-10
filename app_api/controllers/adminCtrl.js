@@ -125,9 +125,42 @@ const createPartner = (req, res) => {
     })
 }
 
+const deleteStudent = (req, res) => {
+    const {mail} = req.body;
+
+    Student.findOneAndRemove({mail}, (err, resp) => {
+        if(err) return res.status(400).json(err);
+
+        return res.status(200).json({message: 'success'});
+    });
+}
+
+const deleteLecturer = (req, res) => {
+    const {mail} = req.body;
+
+    Lecturer.findOneAndRemove({mail}, (err, resp) => {
+        if(err) return res.status(400).json(err);
+
+        return res.status(200).json({message: 'success'});
+    });
+}
+
+const deletePartner = (req, res) => {
+    const {mail} = req.body;
+
+    Lecturer.findOneAndRemove({mail}, (err, resp) => {
+        if(err) return res.status(400).json(err);
+
+        return res.status(200).json({message: 'success'});
+    });
+}
+
 module.exports = {
     updateInfo,
     creatStudent,
     createLecturer,
-    createPartner
+    createPartner,
+    deleteStudent,
+    deleteLecturer,
+    deletePartner
 }
