@@ -268,7 +268,7 @@ const filterReview = async (req, res) => {
                 }, initDictVal);
 
             reviews = reviews.filter(r => idToNameDict[r.intern.ownerId] === partner);
-            
+
                 
 
             res.send(reviews);
@@ -282,6 +282,22 @@ const filterReview = async (req, res) => {
 
     } catch (e) {
         res.status(400).json(e);
+    }
+
+}
+
+const asignLecForStu = async (req, res) => {
+    const {stuId, lecId} = req.body;
+
+    const stu = await Student.findById(stuId).exec();
+    if(stu.lecturer) {
+        res.status(400).json({message: 'This student has already managed by a lecturer'});
+    } else {
+        stu.lecturer = lecId;
+        stu.save(e => {
+            if(e) res.status(400).json(e);
+            else res.status(200).json({message: 'success'});
+        })
     }
 
 }
@@ -302,7 +318,8 @@ module.exports = {
     allIntern,
     delIntern,
     inbox,
-    filterReview
+    filterReview, 
+    asignLecForStu
 }
 
 async function sendDialog(senderId, receiverId, title, content, callback) {

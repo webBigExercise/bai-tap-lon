@@ -161,7 +161,7 @@ async function createSeed() {
 
 
         //init student
-        for (let i = 0; i < students.length; ++i) {
+        for (let i = 0; i < students.length - 1; ++i) {
             students[i].projects = [_projects[0]._id];
             students[i].lecturer = _lecturers[i % _lecturers.length];
         }

@@ -20,6 +20,7 @@ route.get('/allIntern', authMiddleware, adminCtrl.allIntern);
 route.post('/delIntern', authMiddleware, adminCtrl.delIntern);
 route.post('/inbox', authMiddleware, adminCtrl.inbox);
 route.get('/filterReview', authMiddleware, adminCtrl.filterReview);
+route.post('/asignLecForStu', authMiddleware, adminCtrl.asignLecForStu);
 
 
 module.exports = route;
