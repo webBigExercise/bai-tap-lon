@@ -21,6 +21,8 @@ route.post('/delIntern', authMiddleware, adminCtrl.delIntern);
 route.post('/inbox', authMiddleware, adminCtrl.inbox);
 route.get('/filterReview', authMiddleware, adminCtrl.filterReview);
 route.post('/asignLecForStu', authMiddleware, adminCtrl.asignLecForStu);
+route.get('/statisticStuIntern', authMiddleware, adminCtrl.statisticStuIntern);
+route.get('/statisticStuProject', authMiddleware, adminCtrl.statisticStuProject);
 
 
 module.exports = route;

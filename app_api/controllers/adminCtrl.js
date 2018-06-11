@@ -261,7 +261,7 @@ const filterReview = async (req, res) => {
 
             const idToNameDict = listPartner
                 .reduce((pre, cur) => {
-                    const {_id, name} = cur;
+                    const { _id, name } = cur;
                     pre[_id] = name;
 
                     return pre;
@@ -269,7 +269,7 @@ const filterReview = async (req, res) => {
 
             reviews = reviews.filter(r => idToNameDict[r.intern.ownerId] === partner);
 
-                
+
 
             res.send(reviews);
 
@@ -287,21 +287,48 @@ const filterReview = async (req, res) => {
 }
 
 const asignLecForStu = async (req, res) => {
-    const {stuId, lecId} = req.body;
+    const { stuId, lecId } = req.body;
 
     const stu = await Student.findById(stuId).exec();
-    if(stu.lecturer) {
-        res.status(400).json({message: 'This student has already managed by a lecturer'});
+    if (stu.lecturer) {
+        res.status(400).json({ message: 'This student has already managed by a lecturer' });
     } else {
         stu.lecturer = lecId;
         stu.save(e => {
-            if(e) res.status(400).json(e);
-            else res.status(200).json({message: 'success'});
+            if (e) res.status(400).json(e);
+            else res.status(200).json({ message: 'success' });
         })
     }
 
 }
 
+const statisticStuIntern = async (req, res) => {
+    try {
+        const students = await Student
+            .find({})
+            .$where('this.notifFollow && this.notifFollow.length')
+            .exec();
+
+        res.status(200).json({students});
+
+    } catch (e) {
+        res.status(500);
+    }
+}
+
+const statisticStuProject = async (req, res) => {
+    try {
+        const students = await Student
+            .find({})
+            .$where('this.projects && this.projects.length')
+            .exec();
+
+        res.status(200).json({students});
+
+    } catch (e) {
+        res.status(500);
+    }
+}
 
 
 module.exports = {
@@ -318,8 +345,10 @@ module.exports = {
     allIntern,
     delIntern,
     inbox,
-    filterReview, 
-    asignLecForStu
+    filterReview,
+    asignLecForStu,
+    statisticStuIntern,
+    statisticStuProject
 }
 
 async function sendDialog(senderId, receiverId, title, content, callback) {
