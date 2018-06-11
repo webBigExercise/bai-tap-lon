@@ -19,5 +19,7 @@ route.post('/deletePartner', authMiddleware, adminCtrl.deletePartner);
 route.get('/allIntern', authMiddleware, adminCtrl.allIntern);
 route.post('/delIntern', authMiddleware, adminCtrl.delIntern);
 route.post('/inbox', authMiddleware, adminCtrl.inbox);
+route.get('/filterReview', authMiddleware, adminCtrl.filterReview);
+
 
 module.exports = route;

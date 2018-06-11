@@ -3,6 +3,7 @@ const Student = require('../models/student');
 const Lecturer = require('../models/lecturer');
 const Partner = require('../models/partner');
 const InternNotif = require('../models/internNotif');
+const Review = require('../models/review');
 
 const updateInfo = (req, res) => {
     const { mail } = req.payload;
@@ -34,33 +35,33 @@ const updateInfo = (req, res) => {
 
 const allStudent = (req, res) => {
     Student.find((err, students) => {
-        if(err) return res.status(400).json(err);
+        if (err) return res.status(400).json(err);
 
-        res.status(200).json({students});
+        res.status(200).json({ students });
     })
 }
 
 const allLecturer = (req, res) => {
     Lecturer.find((err, lecturers) => {
-        if(err) return res.status(400).json(err);
+        if (err) return res.status(400).json(err);
 
-        res.status(200).json({lecturers});
+        res.status(200).json({ lecturers });
     })
 }
 
 const allPartner = (req, res) => {
     Lecturer.find((err, partners) => {
-        if(err) return res.status(400).json(err);
+        if (err) return res.status(400).json(err);
 
-        res.status(200).json({partners});
+        res.status(200).json({ partners });
     })
 }
 
 const creatStudent = (req, res) => {
     const { mail, password } = req.body;
 
-    if(!mail) return res.status(400).json({message: 'mail is required'});
-    if(!password) return res.status(400).json({message: 'password is required'});
+    if (!mail) return res.status(400).json({ message: 'mail is required' });
+    if (!password) return res.status(400).json({ message: 'password is required' });
 
     const MSSV = `x${Date.now().toString()}`,
         name = 'x',
@@ -105,9 +106,9 @@ const creatStudent = (req, res) => {
 
     newStudent.save(e => {
 
-        if(e) return res.status(500).json(e);
+        if (e) return res.status(500).json(e);
 
-        return res.status(200).json({message: "success"});
+        return res.status(200).json({ message: "success" });
     })
 
 }
@@ -115,8 +116,8 @@ const creatStudent = (req, res) => {
 const createLecturer = (req, res) => {
     const { mail, password } = req.body;
 
-    if(!mail) return res.status(400).json({message: 'mail is required'});
-    if(!password) return res.status(400).json({message: 'password is required'});
+    if (!mail) return res.status(400).json({ message: 'mail is required' });
+    if (!password) return res.status(400).json({ message: 'password is required' });
 
     const newLecturer = new Lecturer();
     newLecturer.mail = mail;
@@ -125,17 +126,17 @@ const createLecturer = (req, res) => {
     newLecturer.name = 'x';
 
     newLecturer.save(e => {
-        if(e) return res.status(500).json(e);
+        if (e) return res.status(500).json(e);
 
-        return res.status(200).json({message: 'success'});
+        return res.status(200).json({ message: 'success' });
     })
 }
 
 const createPartner = (req, res) => {
     const { mail, password } = req.body;
 
-    if(!mail) return res.status(400).json({message: 'mail is required'});
-    if(!password) return res.status(400).json({message: 'password is required'});
+    if (!mail) return res.status(400).json({ message: 'mail is required' });
+    if (!password) return res.status(400).json({ message: 'password is required' });
 
     const newPartner = new Partner();
     newPartner.mail = mail;
@@ -144,57 +145,57 @@ const createPartner = (req, res) => {
     newPartner.info = 'x';
 
     newPartner.save(e => {
-        if(e) return res.status(500).json(e);
+        if (e) return res.status(500).json(e);
 
-        return res.status(200).json({message: 'success'});
+        return res.status(200).json({ message: 'success' });
     })
 }
 
 const deleteStudent = (req, res) => {
-    const {mail} = req.body;
+    const { mail } = req.body;
 
-    Student.findOneAndRemove({mail}, (err, resp) => {
-        if(err) return res.status(400).json(err);
+    Student.findOneAndRemove({ mail }, (err, resp) => {
+        if (err) return res.status(400).json(err);
 
-        return res.status(200).json({message: 'success'});
+        return res.status(200).json({ message: 'success' });
     });
 }
 
 const deleteLecturer = (req, res) => {
-    const {mail} = req.body;
+    const { mail } = req.body;
 
-    Lecturer.findOneAndRemove({mail}, (err, resp) => {
-        if(err) return res.status(400).json(err);
+    Lecturer.findOneAndRemove({ mail }, (err, resp) => {
+        if (err) return res.status(400).json(err);
 
-        return res.status(200).json({message: 'success'});
+        return res.status(200).json({ message: 'success' });
     });
 }
 
 const deletePartner = (req, res) => {
-    const {mail} = req.body;
+    const { mail } = req.body;
 
-    Lecturer.findOneAndRemove({mail}, (err, resp) => {
-        if(err) return res.status(400).json(err);
+    Lecturer.findOneAndRemove({ mail }, (err, resp) => {
+        if (err) return res.status(400).json(err);
 
-        return res.status(200).json({message: 'success'});
+        return res.status(200).json({ message: 'success' });
     });
 }
 
 const allIntern = (req, res) => {
     InternNotif.find((err, internNotifs) => {
-        if(err) return res.status(400).json(err);
+        if (err) return res.status(400).json(err);
 
-        return res.status(200).json({internNotifs});
+        return res.status(200).json({ internNotifs });
     })
 }
 
 const delIntern = (req, res) => {
     const id = req.body.id;
 
-    InternNotif.findOneAndRemove({_id: id}, (err, resp) => {
-        if(err) return res.status(400).json(err);
+    InternNotif.findOneAndRemove({ _id: id }, (err, resp) => {
+        if (err) return res.status(400).json(err);
 
-        return res.status(200).json({message: 'success'});
+        return res.status(200).json({ message: 'success' });
     })
 }
 
@@ -225,6 +226,67 @@ const inbox = async (req, res) => {
 
 }
 
+const filterReview = async (req, res) => {
+    const { partner, lecturer, student } = req.query;
+
+    try {
+
+        let reviews = await Review
+            .find({})
+            .populate('intern')
+            .populate('student')
+            .exec();
+
+        reviews = reviews.filter(r => {
+
+            if (student && r.student.name !== student) return false;
+            if (lecturer && r.student.lecturer !== lecturer) return false;
+
+            return true;
+        });
+
+        if (partner) {
+
+            const listPartnerId = reviews
+                .map(r => r.intern)
+                .map(intern => intern.ownerId);
+
+            const listPartner = await Partner
+                .find({ _id: { $in: listPartnerId } })
+                .select('name')
+                .exec();
+
+            const initDictVal = {};
+            initDictVal[listPartner[0]._id] = listPartner[0].name;
+
+            const idToNameDict = listPartner
+                .reduce((pre, cur) => {
+                    const {_id, name} = cur;
+                    pre[_id] = name;
+
+                    return pre;
+                }, initDictVal);
+
+            reviews = reviews.filter(r => idToNameDict[r.intern.ownerId] === partner);
+            
+                
+
+            res.send(reviews);
+
+        } else {
+
+            res.status(200).send(reviews);
+
+        }
+
+
+    } catch (e) {
+        res.status(400).json(e);
+    }
+
+}
+
+
 
 module.exports = {
     updateInfo,
@@ -239,7 +301,8 @@ module.exports = {
     allPartner,
     allIntern,
     delIntern,
-    inbox
+    inbox,
+    filterReview
 }
 
 async function sendDialog(senderId, receiverId, title, content, callback) {
