@@ -5,19 +5,24 @@ declare interface RouteInfo {
     path: string;
     title: string;
     icon: string;
+    actor: string;
     class: string;
 }
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
-    { path: '/user-profile', title: 'My Profile', icon: 'person', class: '' },
-    { path: '/table-list', title: 'News', icon: 'content_paste', class: '' },
-    { path: '/message', title: 'Messages', icon: 'message', class: '' },
-//     { path: '/typography', title: 'Typography', icon: 'library_books', class: '' },
-//     { path: '/icons', title: 'Icons', icon: 'bubble_chart', class: '' },
-//     { path: '/maps', title: 'Maps', icon: 'location_on', class: '' },
-//     { path: '/notifications', title: 'Notifications', icon: 'notifications', class: '' },
-//     { path: '/upgrade', title: 'Upgrade to PRO', icon: 'unarchive', class: 'active-pro' },
-// ];
+    { path: '/dashboard', title: 'Dashboard', actor: 'student', icon: 'dashboard', class: '' },
+    { path: '/user-profile', title: 'My Profile', actor: 'student', icon: 'person', class: '' },
+    { path: '/table-list', title: 'News', actor: 'student', icon: 'content_paste', class: '' },
+    { path: '/message', title: 'Messages', actor: 'student', icon: 'message', class: '' },
+    { path: '/internship', title: 'Internship', actor: 'student', icon: 'how_to_reg', class: '' },
+    { path: '/report', title: 'Report', icon: 'link', actor: 'student', class: '' },
+    { path: '/lecturer_viewstudent', title: 'View Student', actor: 'lecturer', icon: 'dashboard', class: '' },
+    { path: '/lecturer_studentdashboard', title: 'StudentDashBoard', actor: 'lecturer', icon: 'dashboard', class: '' },
+    { path: '/lecturer_viewreport', title: 'View Report', icon: 'assignment_turned_in', actor: 'lecturer', class: '' },
+    { path: '/partner_internship_news', title: 'View Student', actor: 'partner', icon: 'content_paste', class: '' },
+    { path: '/partner_viewstudent', title: 'View Student', actor: 'partner', icon: 'dashboard', class: '' },
+    { path: '/partner_notifications', title: 'View Student', actor: 'partner', icon: 'add_alert', class: '' },
+    { path: '/partner_message', title: 'View Student', actor: 'partner', icon: 'message', class: '' },
+
 ]
 @Component({
     selector: 'app-sidebar',
@@ -26,11 +31,18 @@ export const ROUTES: RouteInfo[] = [
 })
 export class SidebarComponent implements OnInit {
     menuItems: any[];
-
-    constructor() { }
+    actor: any;
+    constructor() { this.actor = 'partner' }
 
     ngOnInit() {
-        this.menuItems = ROUTES.filter(menuItem => menuItem);
+        if (this.actor === 'student') { this.menuItems = ROUTES.filter(menuItem => menuItem.actor === 'student'); } else
+            if (this.actor === 'lecturer') {
+                this.menuItems = ROUTES.filter(menuItem =>
+                    (menuItem.actor === 'lecturer' && menuItem.title !== 'StudentDashBoard'))
+            } else if (this.actor === 'partner') {
+                this.menuItems = ROUTES.filter(menuItem =>
+                    (menuItem.actor === 'partner'))
+            }
     }
     isMobileMenu() {
         if ($(window).width() > 991) {
