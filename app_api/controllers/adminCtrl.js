@@ -2,6 +2,7 @@ const Admin = require('../models/admin');
 const Student = require('../models/student');
 const Lecturer = require('../models/lecturer');
 const Partner = require('../models/partner');
+const InternNotif = require('../models/internNotif');
 
 const updateInfo = (req, res) => {
     const { mail } = req.payload;
@@ -28,6 +29,30 @@ const updateInfo = (req, res) => {
 
             return res.status(200).json({ message: 'success' });
         })
+    })
+}
+
+const allStudent = (req, res) => {
+    Student.find((err, students) => {
+        if(err) return res.status(400).json(err);
+
+        res.status(200).json({students});
+    })
+}
+
+const allLecturer = (req, res) => {
+    Lecturer.find((err, lecturers) => {
+        if(err) return res.status(400).json(err);
+
+        res.status(200).json({lecturers});
+    })
+}
+
+const allPartner = (req, res) => {
+    Lecturer.find((err, partners) => {
+        if(err) return res.status(400).json(err);
+
+        res.status(200).json({partners});
     })
 }
 
@@ -155,6 +180,52 @@ const deletePartner = (req, res) => {
     });
 }
 
+const allIntern = (req, res) => {
+    InternNotif.find((err, internNotifs) => {
+        if(err) return res.status(400).json(err);
+
+        return res.status(200).json({internNotifs});
+    })
+}
+
+const delIntern = (req, res) => {
+    const id = req.body.id;
+
+    InternNotif.findOneAndRemove({_id: id}, (err, resp) => {
+        if(err) return res.status(400).json(err);
+
+        return res.status(200).json({message: 'success'});
+    })
+}
+
+const inbox = async (req, res) => {
+    const senderMail = req.payload.mail;
+    const { receivMail, title, content } = req.body;
+
+    if (!receivMail) return res.status(400).json({ message: 'mail is required' });
+    if (!content) return res.status(400).json({ message: 'no thing have sent' });
+
+    Person.findByMail(receivMail, (err, receiv) => {
+        if (err) return res.status(400).json(err);
+        if (!receiv) return res.status(400).json({ message: 'invalid mail' });
+
+        Person.findByMail(senderMail, (err, sender) => {
+            if (err) return res.status(400).json(err);
+            if (!sender) return res.status(400).json({ message: 'wrong token' });
+
+            sendDialog(sender._id, receiv._id, title, content, (err, message) => {
+                if (err) return res.status(400).json(err);
+
+                res.status(200).json(message);
+            })
+        })
+
+    })
+
+
+}
+
+
 module.exports = {
     updateInfo,
     creatStudent,
@@ -162,5 +233,31 @@ module.exports = {
     createPartner,
     deleteStudent,
     deleteLecturer,
-    deletePartner
+    deletePartner,
+    allStudent,
+    allLecturer,
+    allPartner,
+    allIntern,
+    delIntern,
+    inbox
+}
+
+async function sendDialog(senderId, receiverId, title, content, callback) {
+    const dialog = new Dialog({ sender: senderId, title, receiver: receiverId, content });
+    dialog.save(async (err) => {
+        if (err) return callback(err);
+
+        try {
+            let send = await Person.findById(senderId);
+            let receiv = await Person.findById(receiverId);
+
+            send.listDialogSend.push(dialog._id);
+            receiv.listDialogReceive.push(dialog._id);
+
+            await send.save(err => err ? callback(err) : null);
+            receiv.save(err => err ? callback(err) : callback(null, { message: 'success' }));
+        } catch (e) {
+            callback(e);
+        }
+    })
 }
