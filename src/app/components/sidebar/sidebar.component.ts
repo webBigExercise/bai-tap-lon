@@ -18,10 +18,10 @@ export const ROUTES: RouteInfo[] = [
     { path: '/lecturer_viewstudent', title: 'View Student', actor: 'lecturer', icon: 'dashboard', class: '' },
     { path: '/lecturer_studentdashboard', title: 'StudentDashBoard', actor: 'lecturer', icon: 'dashboard', class: '' },
     { path: '/lecturer_viewreport', title: 'View Report', icon: 'assignment_turned_in', actor: 'lecturer', class: '' },
-    { path: '/partner_internship_news', title: 'View Student', actor: 'partner', icon: 'content_paste', class: '' },
+    { path: '/partner_internship_news', title: 'Internship News', actor: 'partner', icon: 'content_paste', class: '' },
     { path: '/partner_viewstudent', title: 'View Student', actor: 'partner', icon: 'dashboard', class: '' },
-    { path: '/partner_notifications', title: 'View Student', actor: 'partner', icon: 'add_alert', class: '' },
-    { path: '/partner_message', title: 'View Student', actor: 'partner', icon: 'message', class: '' },
+    { path: '/partner_notifications', title: 'Notifications', actor: 'partner', icon: 'add_alert', class: '' },
+    { path: '/partner_message', title: 'Message', actor: 'partner', icon: 'message', class: '' },
 
 ]
 @Component({
