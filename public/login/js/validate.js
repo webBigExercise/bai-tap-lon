@@ -3,6 +3,7 @@
     // var url = 'localhost:3000/api/login';
     var url = '/api/login';
     function jsonfyErr(err) { return err.responseJSON }
+    console.log(url);
 
     $('#submit-btn').on('click', function(e){
         e.preventDefault();
@@ -11,11 +12,6 @@
 
         console.log(mail);
         console.log(password);
-
-        $.post(url, {mail, password}, function(data, status) {
-
-        })
-
         console.log('summit');
 
         $.ajax({
@@ -28,9 +24,12 @@
             success: function (data, status) {
 
                 console.log(data);
-                localStorage['jwt-token'] = data.token;
+                console.log(data.token);
+                // localStorage['jwt-token'] = data.token;
+                localStorage.setItem('jwt-token', data.token);
                 $('#message-success').html('success');
                 $('#message-error').html('');
+                location.replace('/');
             },
             error: function (err) {
                 console.error(err.responseJSON)
