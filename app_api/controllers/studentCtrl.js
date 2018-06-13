@@ -24,54 +24,55 @@ const getInfo = (req, res) => {
     Student.findOne({ mail }, (err, student) => {
         if (err) return res.status(400).json(err);
         if (!student) return res.status(400).json({ message: 'student is not found' });
+        res.status(200).json({student});
 
-        const { MSSV,
-            name,
-            birth,
-            address,
-            classroom,
-            startYear,
-            speciality,
-            // vnuMail : {type: String, required: true},
-            averageGrade,
-            granduatedYear,
+        // const { MSSV,
+        //     name,
+        //     birth,
+        //     address,
+        //     classroom,
+        //     startYear,
+        //     speciality,
+        //     // vnuMail : {type: String, required: true},
+        //     averageGrade,
+        //     granduatedYear,
 
-            //user manage 
-            avatar,
-            privateEmail,
-            skypeID,
-            facebook,
-            phoneNumber,
-            EnglishSkill,
-            diploma,
-            expreneced,
-            wantToBe,
-            note } = student;
+        //     //user manage 
+        //     avatar,
+        //     privateEmail,
+        //     skypeID,
+        //     facebook,
+        //     phoneNumber,
+        //     EnglishSkill,
+        //     diploma,
+        //     expreneced,
+        //     wantToBe,
+        //     note } = student;
 
-        res.status(200).json({
-            MSSV,
-            name,
-            birth,
-            address,
-            classroom,
-            startYear,
-            speciality,
-            // vnuMail : {type: String, required: true},
-            averageGrade,
-            granduatedYear,
+        // res.status(200).json({
+        //     MSSV,
+        //     name,
+        //     birth,
+        //     address,
+        //     classroom,
+        //     startYear,
+        //     speciality,
+        //     // vnuMail : {type: String, required: true},
+        //     averageGrade,
+        //     granduatedYear,
 
-            //user manage 
-            avatar,
-            privateEmail,
-            skypeID,
-            facebook,
-            phoneNumber,
-            EnglishSkill,
-            diploma,
-            expreneced,
-            wantToBe,
-            note
-        })
+        //     //user manage 
+        //     avatar,
+        //     privateEmail,
+        //     skypeID,
+        //     facebook,
+        //     phoneNumber,
+        //     EnglishSkill,
+        //     diploma,
+        //     expreneced,
+        //     wantToBe,
+        //     note
+        // })
     })
 }
 
