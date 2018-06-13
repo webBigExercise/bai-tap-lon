@@ -190,6 +190,13 @@ const findNotif = (req, res) => {
     }
 }
 
+const allNotif = (req, res) => {
+    InternNotif.find({}, (err, notifs) => {
+        if(err) return res.status(400).json(err);
+        return res.status(200).json({notifs});
+    })
+}
+
 const asignForIntern = (req, res) => {
     const studentMail = req.payload.mail;
     const internNotifId = req.query.id;
@@ -442,7 +449,8 @@ module.exports = {
     inbox,
     sendBriefReport,
     sendFullReport,
-    seeReview
+    seeReview,
+    allNotif
 };
 
 
