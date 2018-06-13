@@ -207,10 +207,18 @@ async function createSeed() {
         for (let i = 0; i < notifs.length; ++i) {
             notifs[i].ownerId = _partners[i % notifs.length]._id;
             notifs[i].followers.push(_students[i % notifs.length]._id);
+            
         }
 
         await InternNotif.create(notifs);
+        
+        //push intern to student
         let _notifs = await InternNotif.find({}).exec();
+        for (let i = 0; i < notifs.length; ++i) {
+            _students[i % notifs.length].notifFollow.push(_notifs[i]._id);
+        }
+
+        await Student.create(_students);
 
         //add notif for partner
         _partners[0].listNotiF.push(_notifs[0]._id);

@@ -210,7 +210,7 @@ const asignForIntern = (req, res) => {
             if (err) return res.status(400).json(err);
 
 
-            InternNotif.findById(internNotifId, (err, internNotif) => {
+            InternNotif.findById(internNotifId, async (err, internNotif) => {
 
                 if (err) return res.status(400).json(err);
                 if (!internNotif) return res.status(400).json({ message: 'no intern founded' });
@@ -222,6 +222,12 @@ const asignForIntern = (req, res) => {
                 internNotif.followers.push(student._id);
                 student.notifFollow.push(internNotif._id);
 
+                try {
+                    await internNotif.save();
+                    await student.save();
+                } catch(e) {
+                    return res.status(400).json(e);
+                }
 
                 const emailContent = `
                 sinh vien: ${student.name},
