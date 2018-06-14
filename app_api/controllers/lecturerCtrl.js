@@ -10,6 +10,18 @@ const fs = require('fs');
 const path = require('path');
 const del = require('del');
 
+const listLec = async (req, res) => {
+    try {
+        const lecturers = await Lecturer.find().exec();
+
+        res.status(200).json({lecturers});
+    } catch (e) {
+        res.status(400).json(e)
+    }
+
+
+}
+
 const updateInfo = (req, res) => {
     const { mail } = req.payload;
     const { vnumail, birthday, phone, note, password, name } = req.body;
