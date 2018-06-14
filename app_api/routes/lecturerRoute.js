@@ -6,6 +6,7 @@ const authMiddleware = require('express-jwt')({
     secret: process.env.JWT_SECRET
 });
 
+route.get('/getInfo', authMiddleware, lecturerCtrl.getInfo);
 route.get('/listLec', authMiddleware, lecturerCtrl.listLec);
 route.put('/updateInfo', authMiddleware, lecturerCtrl.updateInfo);
 route.get('/getListStudentFollow', authMiddleware, lecturerCtrl.getListStudentFollow)

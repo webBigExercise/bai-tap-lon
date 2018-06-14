@@ -13,7 +13,7 @@ const del = require('del');
 const listLec = async (req, res) => {
     try {
         const lecturers = await Lecturer.find().exec();
-
+        
         res.status(200).json({lecturers});
     } catch (e) {
         res.status(400).json(e)
@@ -350,7 +350,8 @@ module.exports = {
     inbox,
     reviewStudent,
     giveGrade,
-    genExcel
+    genExcel,
+    getInfo
 }
 
 async function sendDialog(senderId, receiverId, title, content, callback) {
