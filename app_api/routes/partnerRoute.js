@@ -11,6 +11,7 @@ route.post('/postIntern', authMiddleware, partnerCtrl.postIntern);
 route.put('/editIntern', authMiddleware, partnerCtrl.editIntern);
 route.post('/inbox', authMiddleware, partnerCtrl.inbox);
 route.get('/allStudentInIntern', authMiddleware, partnerCtrl.allStudentInIntern);
+route.get('/allIntern', partnerCtrl.allIntern);
 
 
 module.exports = route;

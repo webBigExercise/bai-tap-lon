@@ -8,7 +8,7 @@ const internNotifSchema = new Schema({
     content: { type: String, default: '' },
     startTime: { type: Date, required: true },
     endTime: { type: Date, required: true },
-    followers: { type: [Schema.Types.ObjectId], default: [] }
+    followers: { type: [{type: Schema.Types.ObjectId, ref: 'student'}], default: [] }
 });
 
 module.exports = mongoose.model(name, internNotifSchema);

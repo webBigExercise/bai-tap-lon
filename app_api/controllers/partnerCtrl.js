@@ -171,7 +171,25 @@ const getInfo = async (req, res) => {
     }
 }
 
+const allIntern = async (req, res) => {
+    try {
+
+        const interns = InternNotif
+            .find()
+            .populate('followers')
+            .exec();
+
+        if(!interns || !interns.length) return res.status(400).json({message: 'no interns'});
+
+        return res.status(400).json({interns});
+
+    } catch (e) {
+        res.status(400).json(e);
+    }
+}
+
 module.exports = {
+    allIntern,
     getInfo,
     updateInfo,
     postIntern,

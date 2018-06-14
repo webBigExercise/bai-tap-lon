@@ -103,3 +103,5 @@ Partner
   - url: localhost:3000/api/partner/allStudentInIntern
   - param : none
   - yeu cau: dang nhap
+ + getInfo(GET): localhost:3000/api/partner/getInfo
+ + allIntern(GET): localhost:3000/api/partner/allIntern
