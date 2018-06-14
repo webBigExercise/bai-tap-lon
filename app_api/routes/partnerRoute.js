@@ -5,6 +5,7 @@ const authMiddleware = require('express-jwt')({
     secret: process.env.JWT_SECRET
 });
 
+route.get('/getInfo', authMiddleware, partnerCtrl.getInfo);
 route.put('/updateInfo', authMiddleware, partnerCtrl.updateInfo);
 route.post('/postIntern', authMiddleware, partnerCtrl.postIntern);
 route.put('/editIntern', authMiddleware, partnerCtrl.editIntern);

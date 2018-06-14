@@ -123,8 +123,8 @@ const allStudentInIntern = async (req, res) => {
             .populate('listProject')
             .exec();
 
-        
-        if(!partner) return res.status(404).json({message: 'not founded partner'});
+
+        if (!partner) return res.status(404).json({ message: 'not founded partner' });
 
         const listStudentId = partner.listProject
             .map(p => p.students)
@@ -132,22 +132,47 @@ const allStudentInIntern = async (req, res) => {
             .map(s => s.studentId);
 
         const listStudent = await Student
-            .find({_id: {$in: listStudentId}})
+            .find({ _id: { $in: listStudentId } })
             .select('name')
             .exec();
 
-        if(!listStudent || !listStudent.length) 
-            return res.status(404).json({message: 'no student is in this partner \' project '});
-        
-        return res.status(200).json({listStudent});
-        
+        if (!listStudent || !listStudent.length)
+            return res.status(404).json({ message: 'no student is in this partner \' project ' });
+
+        return res.status(200).json({ listStudent });
+
 
     } catch (e) {
         if (e) return res.status(400).json(e);
     }
 }
 
+const getInfo = async (req, res) => {
+
+    const { mail } = req.payload;
+    if(!mail) return res.status(400).json({message: 'mail is invalid'});
+
+    try {
+
+        const partner = await Partner
+            .findOne({mail})
+            .populate('listProject')
+            .populate('listNotiF')
+            .populate('reports')
+            .populate('listDialogSend')
+            .populate('listDialogReceive')
+            .exec();
+
+        if(!partner) return res.status(404).json({message: 'partner is not found'});
+        return res.status(200).json({partner});
+
+    } catch (e) {
+        res.status(400).json(e);
+    }
+}
+
 module.exports = {
+    getInfo,
     updateInfo,
     postIntern,
     editIntern,

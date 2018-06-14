@@ -13,8 +13,8 @@ const partnerSchema = PersonSchema.extend({
         type: Schema.Types.ObjectId,
         ref: 'project'
     }], default: [] },
-    listNotiF: { type: [Schema.Types.ObjectId], default: [] },
-    reports: {type: [Schema.Types.ObjectId], default: []}
+    listNotiF: { type: [{type: Schema.Types.ObjectId, ref: 'internNotif'}], default: [] },
+    reports: {type: [{type: Schema.Types.ObjectId, ref: 'report'}], default: []}
 })
 
 // const partnerSchema = new Schema({
