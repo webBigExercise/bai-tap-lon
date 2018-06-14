@@ -57,6 +57,7 @@ student: (tất cả đều y/c login trước nếu ko sẽ trả về lỗi c�
     +allNotif(GET): 
     +chooseLecturer(POST) : params: {lecId}
 lecturer
+
  + updateInfo(PUT): 
   - url: localhost:3000/api/lecturer/updateInfo
   - gom vnumail, birthday(ko bat buoc), phone, note, password(ko bat buoc)
@@ -79,6 +80,8 @@ lecturer
    - url: localhost:3000/api/lecturer/genExcel
    - yêu cầu: đăng nhập và là giảng viên
    - chỉ cần copy đường link vào và đang đăng nhập là download được
+ +listLec(GET): 
+   - url: localhost:3000/api/lecturer/listLec
 Partner
  + updateInfo(PUT): 
    - url: localhost:3000/api/partner/updateInfo

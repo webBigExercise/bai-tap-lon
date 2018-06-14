@@ -302,6 +302,7 @@ const genExcel = async (req, res) => {
 }
 
 module.exports = {
+    listLec,
     updateInfo,
     getListStudentFollow,
     reviewReport,
