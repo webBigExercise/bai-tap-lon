@@ -44,7 +44,8 @@ const studentSchema = PersonSchema.extend({
         type: [{ type: Schema.Types.ObjectId, ref: 'internNotif' }],
         default: []
     },
-    reports: { type: [{type: Schema.Types.ObjectId, ref: 'report'}], default: [] }
+    reports: { type: [{type: Schema.Types.ObjectId, ref: 'report'}], default: [] },
+    grade: {type: Number, default: 0}
 });
 
 module.exports = mongoose.model(name, studentSchema);

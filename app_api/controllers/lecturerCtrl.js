@@ -192,30 +192,49 @@ const reviewStudent = (req, res) => {
         })
 }
 
+// const giveGrade = (req, res) => {
+//     const { grade, internId, studentId } = req.body;
+
+//     if (!studentId) return res.status(400).json({ message: "student id is required" });
+//     if (!internId) return res.status(400).json({ message: 'intern id is requried' });
+//     if (grade !== 0 && !grade) return res.status(400).json({ message: "grade is required" });
+
+//     Review
+//         .findOne({
+//             intern: internId,
+//             student: studentId
+//         }, (err, review) => {
+//             if (err) return res.status(400).json(err);
+//             if (!review) return res.status(404).json({ message: 'not found' });
+
+//             review.grade = grade;
+//             review.save(e => {
+//                 if (e) return res.status(400).json(e);
+
+//                 res.status(200).json({ message: "success" });
+//             })
+//         })
+
+
+// }
+
 const giveGrade = (req, res) => {
-    const { grade, internId, studentId } = req.body;
+    const {grade, studentId} = req.body;
 
     if (!studentId) return res.status(400).json({ message: "student id is required" });
-    if (!internId) return res.status(400).json({ message: 'intern id is requried' });
     if (grade !== 0 && !grade) return res.status(400).json({ message: "grade is required" });
 
-    Review
-        .findOne({
-            intern: internId,
-            student: studentId
-        }, (err, review) => {
-            if (err) return res.status(400).json(err);
-            if (!review) return res.status(404).json({ message: 'not found' });
+    Student.findById(studentId, (err, stu) => {
+        if(err) return res.status(400).json(err);
+        if(!stu) return res.status(400).json({message: 'no student found'});
 
-            review.grade = grade;
-            review.save(e => {
-                if (e) return res.status(400).json(e);
+        stu.grade = grade;
+        stu.save(e => {
+            if(e) return res.status(400).json(e);
 
-                res.status(200).json({ message: "success" });
-            })
+            return res.status(200).json({message: 'success'});
         })
-
-
+    })
 }
 
 const genExcel = async (req, res) => {
