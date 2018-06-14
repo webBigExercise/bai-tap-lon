@@ -82,6 +82,8 @@ lecturer
    - chỉ cần copy đường link vào và đang đăng nhập là download được
  +listLec(GET): 
    - url: localhost:3000/api/lecturer/listLec
+ +getInfo(GET):
+   - url: localhost:3000/api/lecturer/getInfo
 Partner
  + updateInfo(PUT): 
    - url: localhost:3000/api/partner/updateInfo

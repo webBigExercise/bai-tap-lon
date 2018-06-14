@@ -322,6 +322,26 @@ const genExcel = async (req, res) => {
     }
 }
 
+const getInfo = async (req, res) => {
+    const {mail} = req.payload;
+
+    try {
+        const lec = await Lecturer
+            .findOne({mail})
+            .populate('reports')
+            .populate('listProject')
+            .populate('listNotiF')
+            .populate('listNotiF')
+            .populate('listDialogReceive')
+            .exec();
+
+        if(!lec) return res.status(400).json({message: 'no lec found'});
+        return res.status(200).json({lec})
+    } catch (e) {
+        res.status(400).json(e);
+    }
+}
+
 module.exports = {
     listLec,
     updateInfo,
