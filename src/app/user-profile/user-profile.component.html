@@ -9,56 +9,45 @@
                     </div>
                     <div class="card-body">
                         <form>
-                            <!-- <div class="row">
-                                <div class="col-md-5">
+                            <div class="row">
+                                <div class="col-md-4">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Mã SV" disabled>
+                                        <input matInput placeholder="Email" type="email" [(ngModel)]='privateEmail' name='privateEmail'>
                                     </mat-form-field>
                                 </div>
-                                <div class="col-md-3">
+
+                                <div class="col-md-4">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Lớp" disabled>
+                                        <input matInput placeholder="Facebook" type="text" [(ngModel)]='facebook' name='facebook'>
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Khóa" disabled>
+                                        <input matInput placeholder="Skype" type="text" [(ngModel)]='skypeId' name='skypeID'>
                                     </mat-form-field>
                                 </div>
-                            </div> -->
+                            </div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Email" type="email">
+                                        <input matInput placeholder="Kinh nghiệm" type="text" [(ngModel)]='expreneced' name='expreneced'>
                                     </mat-form-field>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Facebook" type="text">
+                                        <input matInput placeholder="Kĩ năng NN" type="text" [(ngModel)]='EnglishSkill' name='EnglishSkill'>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="example-full-width">
+                                        <input matInput placeholder="Định hướng" type="text" [(ngModel)]='wantToBe' name='wantToBe'>
                                     </mat-form-field>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Sở thích" type="text">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Kinh nghiệm" type="text">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-4">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Chứng chỉ" type="text">
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-md-4">
-                                    <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Định hướng" type="text">
+                                        <input matInput placeholder="Bằng cấp" type="text" [(ngModel)]='diploma' name='diploma'>
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -66,18 +55,12 @@
                                 <div class="col-md-12">
                                     <label>About Me</label>
                                     <mat-form-field class="example-full-width">
-                                        <textarea matInput placeholder="Thêm thông tin cá nhân"></textarea>
+                                        <textarea matInput placeholder="Thêm thông tin cá nhân" [(ngModel)]='note' name='note'></textarea>
                                     </mat-form-field>
-                                    <!-- <div class="form-group">
-
-                                      <div class="form-group">
-                                          <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
-                                          <textarea class="form-control" rows="5"></textarea>
-                                      </div>
-                                  </div> -->
                                 </div>
                             </div>
-                            <button mat-raised-button type="submit" class="btn btn-danger pull-right">Cập nhật hồ sơ</button>
+
+                            <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)='updateStudentInfo()'>Cập nhật hồ sơ</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>
@@ -87,17 +70,16 @@
                 <div class="card card-profile">
                     <div class="card-avatar">
                         <a>
-                            <img class="img" src="../assets/img/faces/marc.jpg" />
+                            <img class="img" [src]='imgPath' />
                         </a>
                     </div>
                     <div class="card-body">
-                        <h6 class="card-category text-gray">CEO / Co-Founder</h6>
-                        <h4 class="card-title">Alec Thompson</h4>
+                        <h6 class="card-category text-gray">Student</h6>
+                        <h4 class="card-title">{{name}}</h4>
                         <p class="card-description">
-                            Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye
-                            I love Rick Owens’ bed design but the back is...
-                        </p>
-                        <a href="#pablo" class="btn btn-danger btn-round">Đổi ảnh đại diện</a>
+                            {{studentNote}}
+                            <input type="file" name="pic" accept="image/*" value="Chọn ảnh" class="btn pull-right" [(ngModel)] = 'avatar'>
+                            <!-- <a href="#pablo" class="btn btn-danger btn-round">Đổi ảnh đại diện</a>  -->
                     </div>
                 </div>
             </div>

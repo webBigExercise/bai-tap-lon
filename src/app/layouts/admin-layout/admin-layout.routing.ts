@@ -17,6 +17,16 @@ import { PartnerViewstudentComponent } from '../../partner-viewstudent/partner-v
 import { PartnerNotificationsComponent } from '../../partner-notifications/partner-notifications.component';
 import { PartnerMessageComponent } from '../../partner-message/partner-message.component';
 
+
+import { ManagementStudentComponent } from '../../management-student/management-student.component';
+import { ManagementLecturerComponent } from '../../management-lecturer/management-lecturer.component';
+import { ManagementAdminComponent } from '../../management-admin/management-admin.component';
+import { ManagementPartnerComponent } from '../../management-partner/management-partner.component';
+
+// import { StudentActived } from '../../checkGuard'
+// import { LecturerActived } from '../../checkGuard'
+// import { PartnerActived } from '../../checkGuard'
+// import { AdminActived } from '../../checkGuard'
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
     { path: 'user-profile', component: UserProfileComponent },
@@ -31,4 +41,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'partner_viewstudent', component: PartnerViewstudentComponent },
     { path: 'partner_notifications', component: PartnerNotificationsComponent },
     { path: 'partner_message', component: PartnerMessageComponent },
+    { path: 'management-student', component: ManagementStudentComponent },
+    { path: 'management-lecturer', component: ManagementLecturerComponent },
+    { path: 'management-partner', component: ManagementPartnerComponent },
+    { path: 'management-admin', component: ManagementAdminComponent },
 ];

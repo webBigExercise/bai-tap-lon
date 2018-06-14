@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-
+import { StudentActived } from './checkGuard'
 const routes: Routes = [
   {
     path: '',
@@ -18,6 +18,7 @@ const routes: Routes = [
         path: '',
         loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
       }]
+      ,
   }
   // { path: 'dashboard',      component: DashboardComponent },
   // { path: 'user-profile',   component: UserProfileComponent },
@@ -36,6 +37,7 @@ const routes: Routes = [
     BrowserModule,
     RouterModule.forRoot(routes)
   ],
+  providers: [StudentActived],
   exports: [
   ],
 })

@@ -10933,7 +10933,7 @@ select, select.form-control {
   margin: 8px 0 0; }
 
 textarea {
-  height: auto !important;
+  height: auto;
   resize: none;
   line-height: 1.42857 !important; }
 
