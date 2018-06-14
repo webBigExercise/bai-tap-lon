@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Http, Response, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 
 declare const $: any;
 declare interface RouteInfo {
@@ -22,7 +26,10 @@ export const ROUTES: RouteInfo[] = [
     { path: '/partner_viewstudent', title: 'View Student', actor: 'partner', icon: 'dashboard', class: '' },
     { path: '/partner_notifications', title: 'Notifications', actor: 'partner', icon: 'add_alert', class: '' },
     { path: '/partner_message', title: 'Message', actor: 'partner', icon: 'message', class: '' },
-
+    { path: '/management-student', title: 'Student Management', actor: 'admin', icon: 'dashboard', class: '' },
+    { path: '/management-lecturer', title: 'Lecturer Management', actor: 'admin', icon: 'dashboard', class: '' },
+    { path: '/management-partner', title: 'Partner Management', actor: 'admin', icon: 'dashboard', class: '' },
+    { path: '/management-admin', title: 'Admin Management', actor: 'admin', icon: 'dashboard', class: '' },
 ]
 @Component({
     selector: 'app-sidebar',
@@ -32,9 +39,25 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
     menuItems: any[];
     actor: any;
-    constructor() { this.actor = 'partner' }
+    private http: Http;
+    constructor(_http: Http) { this.http = _http; }
 
     ngOnInit() {
+        // console.log('aaaaa')
+        // const headers = new Headers({ 'Content-Type': 'application/json' });
+        // this.http.post('http://localhost:3000/api/login',
+        //     { mail: 'firstStd@gmail.com', password: 'somepass' }).
+        //     map((response: Response) => console.log(response.json));
+        // if (window.localStorage.getItem('jwt-token')) {
+        //     window.localStorage.removeItem('jwt-token');
+        // }
+        const token = window.localStorage.getItem('jwt-token');
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace('-', '+').replace('_', '/');
+        const person = JSON.parse(window.atob(base64));
+
+        this.actor = person._type;
+
         if (this.actor === 'student') { this.menuItems = ROUTES.filter(menuItem => menuItem.actor === 'student'); } else
             if (this.actor === 'lecturer') {
                 this.menuItems = ROUTES.filter(menuItem =>
@@ -42,6 +65,9 @@ export class SidebarComponent implements OnInit {
             } else if (this.actor === 'partner') {
                 this.menuItems = ROUTES.filter(menuItem =>
                     (menuItem.actor === 'partner'))
+            } else {
+                this.menuItems = ROUTES.filter(menuItem =>
+                    (menuItem.actor === 'admin'))
             }
     }
     isMobileMenu() {

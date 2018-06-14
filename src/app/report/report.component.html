@@ -3,7 +3,37 @@
     <div class="row">
       <div class="col-md-6">
         <div class='row'>
-          <button class="btn btn-info report" >Báo cáo định kì</button>
+          <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myBriefReport" (click)='sendBriefReportClicked($)'>Báo cáo</button>
+        </div>
+        <div class="modal fade" id="myBriefReport" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <!-- <h4 class="modal-title">Close</h4> -->
+              </div>
+              <div class="modal-body">
+                <form>
+
+                  <input type="text" name='receiver' placeholder="Người nhận" [(ngModel)]='receiver' />
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+
+                  <textarea type="text" name='message' placeholder="Report" style="width:400px;height:200px" [(ngModel)]='message'></textarea>
+                  <button class="btn btn-info" (click)='sendBriefReport()'>Gửi</button>
+                  <br>
+                  <span id='error' style='color:red'></span>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="row">
           <div class="card">
@@ -15,20 +45,13 @@
                 <table class="table">
                   <thead class=" text-primary">
                     <th>
-                      File
-                    </th>
-                    <th>
-                      Hành động
+                      Content
                     </th>
                   </thead>
                   <tbody>
-                    <tr>
+                    <tr *ngFor='let report of listReports'>
                       <td>
-                        Niger
-                      </td>
-                      <td>
-                        <button class="btn btn-info">Delete</button>
-                        <button class="btn btn-info">Edit</button>
+                        {{report.content}}
                       </td>
                     </tr>
                   </tbody>
@@ -40,39 +63,62 @@
       </div>
       <div class="col-md-6">
         <div class="row">
-          <button class="btn btn-info">Báo cáo toàn văn</button>
+          <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myFullReport" (click)='sendFullReportClicked($)'>Báo cáo</button>
+        </div>
+        <div class="modal fade" id="myFullReport" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <!-- <h4 class="modal-title">Close</h4> -->
+              </div>
+              <div class="modal-body">
+                <form>
+
+                  <input type="text" name='receiver' placeholder="Người nhận" [(ngModel)]='receiver' />
+                  <br>
+                  <br>
+                  <br>
+                  <input type="file" name="report" accept="" value="" class="btn pull-right" [(ngModel)]='fullReport'>
+                  <br>
+                  <br>
+                  <button class="btn btn-info" (click)='sendFullReport()'>Gửi</button>
+                  <br>
+                  <span id='error' style='color:red'></span>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="row">
-            <div class="card">
-                <div class="card-header card-header-danger">
-                  <h4 class="card-title ">báo cáo toàn văn</h4>
-                </div>
-                <div class="card-body">
-                  <div class="table-responsive">
-                    <table class="table">
-                      <thead class=" text-primary">
-                        <th>
-                          File
-                        </th>
-                        <th>
-                          Hành động
-                        </th>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>
-                            Niger
-                          </td>
-                          <td>
-                            <button class="btn btn-info">Delete</button>
-                            <button class="btn btn-info">Edit</button>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+          <div class="card">
+            <div class="card-header card-header-danger">
+              <h4 class="card-title ">báo cáo toàn văn</h4>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead class=" text-primary">
+                    <th>
+                      File
+                    </th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        1.pdf
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -1,0 +1,95 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title ">Danh sách sinh viên</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class=" text-primary">
+                  <th>
+                    Mã sinh viên
+                  </th>
+                  <th>
+                    Họ và tên
+                  </th>
+                  <th>
+                    Email
+                  </th>
+                  <th>
+                    Năm
+                  </th>
+                  <th></th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      16020922
+                    </td>
+                    <td>
+                      Phạm Văn A
+                    </td>
+                    <td>
+                      pa26@gmail.com
+                    </td>
+                    <td>
+                      2018
+                    </td>
+                    <td>
+                      <button class="btn btn-primary">Edit</button>
+                      <button class="btn btn-primary">Delete</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myMessage">New student</button>
+      </div>
+      <div class="modal fade" id="myMessage" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <!-- <h4 class="modal-title">Close</h4> -->
+            </div>
+            <div class="modal-body">
+              <form>
+                <input type="text" name='MSSV' placeholder="MSSV" [(ngModel)]='mssv' />
+                <br>
+                <br>
+                <input type="text" name='name' placeholder="Name" [(ngModel)]='name' />
+                <br>
+                <br>
+                <input type="text" name='class' placeholder="Lop" [(ngModel)]='class' />
+                <br>
+                <br>
+                <input type="password" name="class" placeholder="Password" [(ngModel)] = 'password'/>
+                <br>
+                <br>
+                <button class="btn btn-info" (click)='sendMessage()'>Add</button>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <!-- <app-lecturer-studentdashboard></app-lecturer-studentdashboard> -->
+  </div>
+</div>

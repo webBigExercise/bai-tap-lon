@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { UserProfileComponent } from '../../user-profile/user-profile.component';
@@ -24,6 +25,12 @@ import { PartnerIntershipNewsComponent } from '../../partner-intership-news/part
 import { PartnerViewstudentComponent } from '../../partner-viewstudent/partner-viewstudent.component';
 import { PartnerNotificationsComponent } from '../../partner-notifications/partner-notifications.component';
 import { PartnerMessageComponent } from '../../partner-message/partner-message.component';
+
+import { ManagementStudentComponent } from '../../management-student/management-student.component';
+import { ManagementLecturerComponent } from '../../management-lecturer/management-lecturer.component';
+import { ManagementAdminComponent } from '../../management-admin/management-admin.component';
+import { ManagementPartnerComponent } from '../../management-partner/management-partner.component';
+
 import {
   MatButtonModule,
   MatInputModule,
@@ -61,7 +68,10 @@ import {
     PartnerViewstudentComponent,
     PartnerNotificationsComponent,
     PartnerMessageComponent,
-
+    ManagementStudentComponent,
+    ManagementLecturerComponent,
+    ManagementAdminComponent,
+    ManagementPartnerComponent
   ]
 })
 

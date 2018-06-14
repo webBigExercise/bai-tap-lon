@@ -19,6 +19,10 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
     constructor(public location: Location, private router: Router) { }
 
     ngOnInit() {
+        window.localStorage.setItem('jwt-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtYWlsIjoibGVAZ21haWwuY29tIiwi' +
+            'X3R5cGUiOiJsZWN0dXJlciIsImlhdCI6MTUyODk3OTc4N' +
+            'H0.qluqN7ynH7OWaCjRkwhFzpGvhFqvn2WLvRrujOaE7sI');
+
         const isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 
         if (isWindows && !document.getElementsByTagName('body')[0].classList.contains('sidebar-mini')) {

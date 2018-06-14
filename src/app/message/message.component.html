@@ -1,10 +1,44 @@
 <div class="main-content">
   <div class="container-fluid">
+
     <div class="row">
       <div class="col-md-3">
-        <button class="btn btn-block">Soạn</button>
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myMessage" (click)='sendBtnClicked($)'>Soạn</button>
+      </div>
+      <div class="modal fade" id="myMessage" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <!-- <h4 class="modal-title">Close</h4> -->
+            </div>
+            <div class="modal-body">
+              <form>
+
+                <input type="text" name='receiver' placeholder="Người nhận" [(ngModel)]='receiver' />
+                <br>
+                <br>
+
+                <input type="text" name='subject' placeholder="Chủ đề" [(ngModel)]='subject' />
+                <br>
+                <br>
+
+                <textarea type="text" name='message' placeholder="Message" style="width:400px;height:200px" [(ngModel)]='message'></textarea>
+                <button class="btn btn-info" (click) = 'sendMessage()'>Gửi</button>
+                <br>
+                <span id='error' style='color:red'></span>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+
     <div class="row">
       <div class="col-md-6">
         <div class="card">
@@ -13,7 +47,7 @@
           </div>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table">
+              <table class="table" id='receiveTable'>
                 <thead class=" text-primary">
                   <th>
                     Tiêu đề
@@ -24,71 +58,19 @@
                   <th>
                     Nội dung
                   </th>
+                  <th>
+                  </th>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr *ngFor='let receiMail of listReceiveMail'>
+                    <td>{{receiMail.title}}</td>
+                    <td>{{receiMail.sender}}</td>
+                    <td>{{receiMail.content}}</td>
                     <td>
-                      Dakota Rice
-                    </td>
-                    <td>
-                      Niger
-                    </td>
-                    <td>
-                      Oud-Turnhout
+                      <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myMessage" (click)='replyBtnClicked($event)'>
+                        Reply</button>
                     </td>
                   </tr>
-                  <tr>
-                    <td>
-                      Minerva Hooper
-                    </td>
-                    <td>
-                      Curaçao
-                    </td>
-                    <td>
-                      Sinaai-Waas
-                    </td>
-
-                  </tr>
-                  <tr>
-
-                    <td>
-                      Sage Rodriguez
-                    </td>
-                    <td>
-                      Netherlands
-                    </td>
-                    <td>
-                      Baileux
-                    </td>
-
-                  </tr>
-                  <tr>
-
-                    <td>
-                      Philip Chaney
-                    </td>
-                    <td>
-                      Korea, South
-                    </td>
-                    <td>
-                      Overland Park
-                    </td>
-
-                  </tr>
-                  <tr>
-
-                    <td>
-                      Doris Greene
-                    </td>
-                    <td>
-                      Malawi
-                    </td>
-                    <td>
-                      Feldkirchen in Kärnten
-                    </td>
-
-                  </tr>
-
                 </tbody>
               </table>
             </div>
@@ -99,13 +81,11 @@
         <div class="card">
           <div class="card-header card-header-danger">
             <h4 class="card-title ">Hộp thư đi</h4>
-            <!-- <p class="card-category"> </p> -->
           </div>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table">
+              <table class="table" id='sendTable'>
                 <thead class=" text-primary">
-
                   <th>
                     Tiêu đề
                   </th>
@@ -115,64 +95,17 @@
                   <th>
                     Nội dung
                   </th>
-
                 </thead>
                 <tbody>
-                  <tr>
-
+                  <tr *ngFor='let sendMail of listSendMail'>
                     <td>
-                      Dakota Rice
+                      {{sendMail.title}}
                     </td>
                     <td>
-                      Niger
+                      {{sendMail.receiver}}
                     </td>
                     <td>
-                      Oud-Turnhout
-                    </td>
-
-                  </tr>
-                  <tr>
-                    <td>
-                      Minerva Hooper
-                    </td>
-                    <td>
-                      Curaçao
-                    </td>
-                    <td>
-                      Sinaai-Waas
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Sage Rodriguez
-                    </td>
-                    <td>
-                      Netherlands
-                    </td>
-                    <td>
-                      Baileux
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Philip Chaney
-                    </td>
-                    <td>
-                      Korea, South
-                    </td>
-                    <td>
-                      Overland Park
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Doris Greene
-                    </td>
-                    <td>
-                      Malawi
-                    </td>
-                    <td>
-                      Feldkirchen in Kärnten
+                      {{sendMail.content}}
                     </td>
                   </tr>
                 </tbody>

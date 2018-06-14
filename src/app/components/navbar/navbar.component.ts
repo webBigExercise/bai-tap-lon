@@ -33,7 +33,9 @@ export class NavbarComponent implements OnInit {
             }
         });
     }
-
+    logout() {
+        window.localStorage.removeItem('jwt-token');
+    }
     sidebarOpen() {
         const toggleButton = this.toggleButton;
         const body = document.getElementsByTagName('body')[0];

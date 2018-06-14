@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
+import { CommonModule } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -29,15 +30,22 @@ import { PartnerViewstudentComponent } from './partner-viewstudent/partner-views
 import { PartnerNotificationsComponent } from './partner-notifications/partner-notifications.component';
 import { PartnerMessageComponent } from './partner-message/partner-message.component';
 
+import { ManagementStudentComponent } from './management-student/management-student.component';
+import { ManagementLecturerComponent } from './management-lecturer/management-lecturer.component';
+import { ManagementAdminComponent } from './management-admin/management-admin.component';
+import { ManagementPartnerComponent } from './management-partner/management-partner.component';
+
 import {
   AgmCoreModule
 } from '@agm/core';
+
 
 
 @NgModule({
   imports: [
     BrowserAnimationsModule,
     FormsModule,
+    CommonModule,
     HttpModule,
     ComponentsModule,
     RouterModule,
@@ -49,7 +57,6 @@ import {
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-
 
   ],
   providers: [],

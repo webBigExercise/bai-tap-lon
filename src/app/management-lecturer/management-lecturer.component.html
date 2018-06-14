@@ -30,53 +30,30 @@
                   </th>
                 </thead>
                 <tbody>
-                  <tr *ngFor='let student of listStudent'>
+                  <tr>
                     <td>
-                      {{student.MSSV}}
+                      16020922
                     </td>
                     <td>
-                      {{student.name}}
+                      Phạm Văn A
                     </td>
                     <td>
-                      {{student.mail}}
+                      pa26@gmail.com
                     </td>
                     <td>
-                      {{student.startYear}}
+                      2018
                     </td>
 
                     <td>
                       <a href="#">More details</a>
                     </td>
                     <td>
-                      <!-- <button class="btn btn-primary">Comments</button> -->
-                      <button type="button" class="btn btn-info " [id] = 'student._id' data-toggle="modal" data-target="#mark" (click)='giveMarkBtnClicked($event)'>Give mark</button>
+                      <button class="btn btn-primary">Comments</button>
+                      <button class="btn btn-primary">Give mark</button>
                     </td>
                   </tr>
                 </tbody>
               </table>
-              <div class="modal fade" id="mark" role="dialog">
-                <div class="modal-dialog">
-
-                  <!-- Modal content-->
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                      <form>
-                        <input type="text" id='mark' name='mark' placeholder="Điểm" [(ngModel)] = 'mark'> 
-                        <br>
-                        <br>
-                        <button class="btn btn-info" type="button" (click) ='giveMark()'>Confirm</button>
-
-                      </form>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -97,14 +74,3 @@
     <app-lecturer-studentdashboard></app-lecturer-studentdashboard>
   </div>
 </div>
-<script>
-  $(function () {
-
-    $(".dropdown-menu li").click(function () {
-
-      $("#dropdown").text($(this).text());
-      $("#dropdown").val($(this).text());
-    });
-
-  });
-</script>

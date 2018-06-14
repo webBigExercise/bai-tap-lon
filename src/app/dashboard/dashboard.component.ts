@@ -1,14 +1,38 @@
 import { Component, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
 
+import { checkStudentLogined } from '.././checkLogin';
+import { checkLecturerLogined } from '.././checkLogin';
+import { checkPartnerLogined } from '.././checkLogin';
+import { checkAdminLogined } from '.././checkLogin';
+
+import { Injectable } from '@angular/core';
+// Import Http & Response from angular HTTP module
+import { Http, Response, Headers, BaseRequestOptions } from '@angular/http';
+// Import Observable from rxjs/Observable
+import { Observable } from 'rxjs/Observable';
+// Import the map operator
+import 'rxjs/add/operator/map';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  skills: string[];
+  projects: string[];
+  studentNumber: number;
+  name: string;
+  class: string;
+  phoneNumber: string;
+  assigned: number;
+  // Update
 
-  constructor() { }
+  constructor(private _http: Http) {
+
+  }
+
   startAnimationForLineChart(chart) {
     let seq: any, delays: any, durations: any;
     seq = 0;
@@ -67,7 +91,29 @@ export class DashboardComponent implements OnInit {
   };
   ngOnInit() {
     /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
+    // if (checkPartnerLogined) {
+    //   window.location.href = 'http://localhost:4200/partner_message'
+    // }
 
+    // if (checkAdminLogined) {
+    //   window.location.href = 'http://localhost:4200/partner_message'
+    // }
+
+    // if (checkLecturerLogined) {
+    //   window.location.href = 'http://localhost:4200/lecturer_viewstudent'
+    // }.
+    const headers = new Headers();
+    // console.log(window.localStorage.getItem('jwt-token'))
+    headers.append('Authorization', 'Bearer' + ' ' + window.localStorage.getItem('jwt-token'));
+    // console.log(headers.toJSON);
+    this._http.get('http://localhost:3000/api/student/getSkill', { headers: headers })
+      .map((response: Response) => response.json()).subscribe(data => { this.projects = data.projects; this.skills = data.skills });
+    // setTimeout(console.log(this.data), 2000);
+    this._http.get('http://localhost:3000/api/student/getInfo', { headers: headers })
+      .map((response: Response) => response.json()).subscribe(data => {
+        this.studentNumber = data.student.MSSV; this.name = data.student.name; this.class = data.student.classroom;
+         this.phoneNumber = data.student.phoneNumber; this.assigned = data.student.notifFollow.length;
+      });
     const dataDailySalesChart: any = {
       labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
       series: [
