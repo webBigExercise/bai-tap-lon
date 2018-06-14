@@ -219,9 +219,10 @@ const reviewStudent = (req, res) => {
 // }
 
 const giveGrade = (req, res) => {
-    const {grade, studentId} = req.body;
+    const {grade, studentId, comment} = req.body;
 
     if (!studentId) return res.status(400).json({ message: "student id is required" });
+    if (!comment) return res.status(400).json({ message: "comment id is required" });
     if (grade !== 0 && !grade) return res.status(400).json({ message: "grade is required" });
 
     Student.findById(studentId, (err, stu) => {
@@ -229,6 +230,7 @@ const giveGrade = (req, res) => {
         if(!stu) return res.status(400).json({message: 'no student found'});
 
         stu.grade = grade;
+        stu.comment = comment;
         stu.save(e => {
             if(e) return res.status(400).json(e);
 
