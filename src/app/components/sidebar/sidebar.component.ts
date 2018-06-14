@@ -58,6 +58,8 @@ export class SidebarComponent implements OnInit {
 
         this.actor = person._type;
 
+        this.actor = 'student';
+
         if (this.actor === 'student') { this.menuItems = ROUTES.filter(menuItem => menuItem.actor === 'student'); } else
             if (this.actor === 'lecturer') {
                 this.menuItems = ROUTES.filter(menuItem =>

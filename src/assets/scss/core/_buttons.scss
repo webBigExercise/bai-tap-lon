@@ -1,4 +1,7 @@
 .mat-button.btn,.mat-raised-button.btn,.mat-raised-button.btn:not([class*=mat-elevation-z]),
+.btn-group {
+    background-color: blue;
+}
 .btn{
   position: relative;
   padding: 12px 30px;
